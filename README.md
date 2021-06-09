@@ -44,7 +44,7 @@ _Use o checkbox para marcar as variáveis adicionadas, ajuda a se guiar na const
 _Lembre-se de importar a fonte no arquivo_ `src/app/styles/global.styles.css`
 _Para fontes locais, adicione em_ `public/font` _e importe como font-face no arquivo_ `src/app/styles/global.styles.css`.
 
-*family*
+**family** <br />
   [ ] title-f - Fonte para os títulos<br />
   [ ] text-f - Fonte para texto que não são títulos<br />
   [ ] button-f - Fonte para botões<br />
