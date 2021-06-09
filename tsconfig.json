@@ -1,6 +1,16 @@
 {
   "compilerOptions": {
     "baseUrl": "src",
+    "paths": {
+      "@common/*": ["lib/components/common/*"],
+      "@organism/*": ["lib/components/organism/*"],
+      "@layout/*": ["lib/components/layout/*"],
+      "@contexts/*": ["lib/contexts/*"],
+      "@types/*": ["lib/types/*"],
+      "@utils/*": ["lib/utils/*"],
+      "@root/*": ["../*"],
+      "@styles/*": ["app/styles/*"],
+    },
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,

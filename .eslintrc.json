@@ -72,6 +72,14 @@
               ["^react", "^@?\\w"],
               // Internal packages.
               ["^(assets|lib|core|pages)(/.*|$)"],
+              ["^(@root)(/.*|$)"],
+              ["^(@styles)(/.*|$)"],
+              ["^(@utils)(/.*|$)"],
+              ["^(@contexts)(/.*|$)"],
+              ["^(@types)(/.*|$)"],
+              ["^(@layout)(/.*|$)"],
+              ["^(@organism)(/.*|$)"],
+              ["^(@common)(/.*|$)"],
               // Components.
               ["^(lib/components)(/.*|$)"],
               // Side effect imports.
