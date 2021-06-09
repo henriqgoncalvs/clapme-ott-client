@@ -2,6 +2,9 @@
 
 <img src="https://clapme.com/assets/clapme-logo-6e9f92c6fb2feba86ea49f94061e4966ab7467e6b1c3485721d9b40e379472d6.png" />
 
+<br />
+<br />
+
 ### O arquivo `styledguide.json` serve para preencher todas as variáveis de Styleguide da plataforma.
 
 **Obs.: Não mude o nome das chaves, somente os valores. Ex.:**
