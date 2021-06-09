@@ -45,14 +45,14 @@ _Lembre-se de importar a fonte no arquivo_ `src/app/styles/global.styles.css`
 _Para fontes locais, adicione em_ `public/font` _e importe como font-face no arquivo_ `src/app/styles/global.styles.css`.
 
 *family*
-  [ ] title-f - Fonte para os títulos
-  [ ] text-f - Fonte para texto que não são títulos
-  [ ] button-f - Fonte para botões
+  [ ] title-f - Fonte para os títulos<br />
+  [ ] text-f - Fonte para texto que não são títulos<br />
+  [ ] button-f - Fonte para botões<br />
 
 ### Títulos (_type_)
 
-[ ] banner - Texto do banner da Home.
-[ ] login - Texto do banner em Login.
+[ ] banner - Texto do banner da Home.<br />
+[ ] login - Texto do banner em Login.<br />
 
 ---
 ## Imagens
@@ -61,9 +61,9 @@ _Adicione as imagens na pasta_ `public/font`
 
 _Coloque as imagens com o nome indicado abaixo:_
 
-[ ] logo - Arquivo usado para a logo na navbar, footer, login, etc.
-[ ] banner - Arquivo usado para a foto do banner na Home.
-[ ] login - Arquivo usado para a tela de login.
+[ ] logo - Arquivo usado para a logo na navbar, footer, login, etc.<br />
+[ ] banner - Arquivo usado para a foto do banner na Home.<br />
+[ ] login - Arquivo usado para a tela de login.<br />
 
 ### Favicon
 
