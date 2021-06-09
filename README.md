@@ -1,14 +1,18 @@
-# O arquivo `styledguide.json` serve para preencher todas as variáveis de Styleguide da plataforma.
+# ClapMe OTTzinha
+
+<img src="https://clapme.com/assets/clapme-logo-6e9f92c6fb2feba86ea49f94061e4966ab7467e6b1c3485721d9b40e379472d6.png" />
+
+### O arquivo `styledguide.json` serve para preencher todas as variáveis de Styleguide da plataforma.
 
 **Obs.: Não mude o nome das chaves, somente os valores. Ex.:**
-  == BASE ==
+  _BASE_
   ```json
     {
       "primary": "#000"
     }
   ```
 
-  == BOM ==
+  _BOM_
   ```json
     {
       "primary": "#ccc"
@@ -26,11 +30,11 @@
 _Use o checkbox para marcar as variáveis adicionadas, ajuda a se guiar na construção do arquivo._
 ### Cores (_colors_)
 
-[ ] primary-c - Backgrounds dos botões, filtro nas fotos, links ativos.
-[ ] text-c - Textos que não utilizam a cor primária.
-[ ] solid-c - Background sólido no banner, background da navbar, background do footer.
-[ ] solid-text-c - Textos que vão aparecer por cima de um bloco que tem `solid` como background.
-[ ] body-c - Background do body.
+[ ] primary-c - Backgrounds dos botões, filtro nas fotos, links ativos. <br />
+[ ] text-c - Textos que não utilizam a cor primária.<br />
+[ ] solid-c - Background sólido no banner, background da navbar, background do footer.<br />
+[ ] solid-text-c - Textos que vão aparecer por cima de um bloco que tem `solid` como background.<br />
+[ ] body-c - Background do body.<br />
 
 ### Fontes (_fonts_)
 
