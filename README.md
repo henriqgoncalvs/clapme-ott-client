@@ -1,29 +1,63 @@
-# Next.js + Tailwind CSS Example
+# O arquivo `styledguide.json` serve para preencher todas as variáveis de Styleguide da plataforma.
 
-This example shows how to use [Tailwind CSS](https://tailwindcss.com/) (v2.1) with Next.js. It follows the steps outlined in the official [Tailwind docs](https://tailwindcss.com/docs/guides/nextjs).
+**Obs.: Não mude o nome das chaves, somente os valores. Ex.:**
+  == BASE ==
+  ```json
+    {
+      "primary": "#000"
+    }
+  ```
 
-It uses the new [`Just-in-Time Mode`](https://tailwindcss.com/docs/just-in-time-mode) for Tailwind CSS.
+  == BOM ==
+  ```json
+    {
+      "primary": "#ccc"
+    }
+  ```
+  == MAU ==
+  ```json
+    {
+      "cinza-claro": "#ccc"
+    }
+  ```
 
-## Preview
 
-Preview the example live on [StackBlitz](http://stackblitz.com/):
+## Variáveis
+_Use o checkbox para marcar as variáveis adicionadas, ajuda a se guiar na construção do arquivo._
+### Cores (_colors_)
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-tailwindcss)
+[ ] primary-c - Backgrounds dos botões, filtro nas fotos, links ativos.
+[ ] text-c - Textos que não utilizam a cor primária.
+[ ] solid-c - Background sólido no banner, background da navbar, background do footer.
+[ ] solid-text-c - Textos que vão aparecer por cima de um bloco que tem `solid` como background.
+[ ] body-c - Background do body.
 
-## Deploy your own
+### Fontes (_fonts_)
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
+_Lembre-se de importar a fonte no arquivo_ `src/app/styles/global.styles.css`
+_Para fontes locais, adicione em_ `public/font` _e importe como font-face no arquivo_ `src/app/styles/global.styles.css`.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-tailwindcss&project-name=with-tailwindcss&repository-name=with-tailwindcss)
+*family*
+  [ ] title-f - Fonte para os títulos
+  [ ] text-f - Fonte para texto que não são títulos
+  [ ] button-f - Fonte para botões
 
-## How to use
+### Títulos (_type_)
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
+[ ] banner - Texto do banner da Home.
+[ ] login - Texto do banner em Login.
 
-```bash
-npx create-next-app --example with-tailwindcss with-tailwindcss-app
-# or
-yarn create next-app --example with-tailwindcss with-tailwindcss-app
-```
+---
+## Imagens
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+_Adicione as imagens na pasta_ `public/font`
+
+_Coloque as imagens com o nome indicado abaixo:_
+
+[ ] logo - Arquivo usado para a logo na navbar, footer, login, etc.
+[ ] banner - Arquivo usado para a foto do banner na Home.
+[ ] login - Arquivo usado para a tela de login.
+
+### Favicon
+
+_Adicione o arquivo_ `favicon.ico` _na pasta_ `public/`

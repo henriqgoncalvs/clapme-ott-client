@@ -1,0 +1,21 @@
+{
+  "colors": {
+    "primary-c": "#DC3045",
+    "text-c": "#000",
+    "solid-c": "#000",
+    "solid-text-c": "#fff",
+    "body-c": "#fffefe"
+  },
+  "font": {
+    "family": {
+      "title-f": "Poppins",
+      "text-f": "Poppins",
+      "button-f": "Poppins"
+    }
+  },
+  "type": {
+    "brand": "Theatro Municipal",
+    "banner": "Shows transmitidos diretamente do Theatro Municipal de São Paulo.",
+    "login": "Espetáculos do Theatro Municipal onde você estiver."
+  }
+}
