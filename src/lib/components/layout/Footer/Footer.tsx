@@ -24,9 +24,21 @@ function Footer() {
           direction={{ base: 'column', lg: 'row' }}
           spacing={{ base: '10', lg: '28' }}
         >
-          <Box flex="1">
+          <Box
+            flex="1"
+            d="flex"
+            alignItems="flex-start"
+            justifyContent="flex-start"
+            flexDirection="column"
+          >
             <Image
               src="/img/logo.png"
+              width="100"
+              height="60"
+              objectFit="contain"
+            />
+            <Image
+              src="/img/clapme-logo.png"
               width="100"
               height="60"
               objectFit="contain"

@@ -5,3 +5,8 @@ export type EventCardProps = {
   date: string;
   id: string | number;
 };
+
+export type LoginFormProps = {
+  email: string;
+  password: string;
+};

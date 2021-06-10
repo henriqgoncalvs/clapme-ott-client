@@ -19,12 +19,14 @@
     "@chakra-ui/react": "^1.6.3",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
+    "formik": "^2.2.9",
     "framer-motion": "^4",
     "next": "latest",
     "palx": "^1.0.3",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-icons": "^4.2.0"
+    "react-icons": "^4.2.0",
+    "yup": "^0.32.9"
   },
   "devDependencies": {
     "@types/node": "^15.12.2",
