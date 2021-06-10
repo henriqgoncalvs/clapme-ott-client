@@ -15,7 +15,9 @@ function Countdown() {
                 Estamos ao vivo
               </Text>
               <Link href="/assistir" passHref>
-                <Button textTransform="uppercase">Assistir</Button>
+                <Button textTransform="uppercase" size="lg">
+                  Assistir
+                </Button>
               </Link>
             </Flex>
           );
