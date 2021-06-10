@@ -10,7 +10,7 @@ function Navbar() {
   const btnSize = useBreakpointValue({ base: 'sm', md: 'md' });
 
   return (
-    <nav className="h-20 w-full flex items-center justify-between px-8 py-2 fixed top-0 z-50 bg-solid-c">
+    <nav className="h-20 w-screen flex items-center justify-between px-8 py-2 fixed top-0 z-50 bg-solid-c">
       <Link href="/" passHref>
         <ChakraLink>
           <Image
