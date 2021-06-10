@@ -31,7 +31,7 @@ const theme = extendTheme({
       },
       h1: {
         fontWeight: 'bold',
-        fontSize: '3xl',
+        fontSize: { base: '2xl', sm: '2xl', md: '3xl', lg: '4xl' },
       },
       h2: {
         fontWeight: 'bold',
