@@ -23,7 +23,8 @@
     "next": "latest",
     "palx": "^1.0.3",
     "react": "^17.0.1",
-    "react-dom": "^17.0.1"
+    "react-dom": "^17.0.1",
+    "react-icons": "^4.2.0"
   },
   "devDependencies": {
     "@types/node": "^15.12.2",

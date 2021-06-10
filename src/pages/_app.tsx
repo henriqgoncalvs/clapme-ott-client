@@ -6,7 +6,10 @@ import styleguide from '@root/styleguide.json';
 
 import chakraTheme from '@styles/chakra-theme';
 
+import Footer from '@layout/Footer';
+
 import '@styles/global.styles.css';
+import 'tailwindcss/tailwind.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -16,6 +19,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Component {...pageProps} />
+      <Footer />
     </ChakraProvider>
   );
 }

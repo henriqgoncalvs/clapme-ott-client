@@ -21,6 +21,9 @@ module.exports = {
         'header-banner': "url('/img/banner.png')",
         'login-banner': "url('/img/login.png')",
       }),
+      boxShadow: {
+        DEFAULT: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+      },
     },
   },
   variants: {
