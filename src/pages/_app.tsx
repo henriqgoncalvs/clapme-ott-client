@@ -8,6 +8,8 @@ import chakraTheme from '@styles/chakra-theme';
 
 import Footer from '@layout/Footer';
 
+import Navbar from '@organism/Navbar';
+
 import '@styles/global.styles.css';
 import 'tailwindcss/tailwind.css';
 
@@ -18,6 +20,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <title>{styleguide.type.brand}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <Navbar />
       <Component {...pageProps} />
       <Footer />
     </ChakraProvider>

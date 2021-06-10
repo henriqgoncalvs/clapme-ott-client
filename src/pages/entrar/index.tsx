@@ -14,7 +14,7 @@ import LoginForm from '@organism/LoginForm';
 
 function Entrar() {
   return (
-    <Container py="16" px="8">
+    <Container py="16" px="8" mt={20}>
       <Center maxW="md" w="100%" mx="auto">
         <Flex direction="column" align="stretch" w="100%">
           <Box alignSelf="center">
