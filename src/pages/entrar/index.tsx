@@ -4,7 +4,6 @@ import {
   Container,
   Flex,
   Link as ChakraLink,
-  Spacer,
   Stack,
   Text,
 } from '@chakra-ui/react';
@@ -27,13 +26,9 @@ function Entrar() {
             />
           </Box>
 
-          <Spacer />
-
           <Box>
             <LoginForm />
           </Box>
-
-          <Spacer />
 
           <Center>
             <Stack direction={{ base: 'column', md: 'row' }} fontWeight="bold">
@@ -43,8 +38,6 @@ function Entrar() {
               </Link>
             </Stack>
           </Center>
-
-          <Spacer />
         </Flex>
       </Center>
     </Container>
