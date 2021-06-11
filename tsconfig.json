@@ -8,6 +8,8 @@
       "@contexts/*": ["lib/contexts/*"],
       "@types/*": ["lib/types/*"],
       "@utils/*": ["lib/utils/*"],
+      "@hooks/*": ["lib/hooks/*"],
+      "@fetchers/*": ["core/api/fetchers/*"],
       "@root/*": ["../*"],
       "@styles/*": ["app/styles/*"],
     },

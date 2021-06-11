@@ -35,7 +35,6 @@
   "rules": {
     "prettier/prettier": "error",
     "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn",
     "react/jsx-props-no-spreading": "off",
     "import/prefer-default-export": "off",
     "react/jsx-uses-react": "error",
@@ -75,6 +74,8 @@
               ["^(@root)(/.*|$)"],
               ["^(@styles)(/.*|$)"],
               ["^(@utils)(/.*|$)"],
+              ["^(@hooks)(/.*|$)"],
+              ["^(@fetchers)(/.*|$)"],
               ["^(@contexts)(/.*|$)"],
               ["^(@types)(/.*|$)"],
               ["^(@layout)(/.*|$)"],

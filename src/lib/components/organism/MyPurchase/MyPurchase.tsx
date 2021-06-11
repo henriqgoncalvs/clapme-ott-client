@@ -4,7 +4,7 @@ import { Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/table';
 
 function MyPurchase() {
   return (
-    <Box minH="30vh" w="100%" overflowX="scroll">
+    <Box w="100%" overflowX="scroll">
       <Table variant="simple" size="sm" overflow="scroll" maxW="100%">
         <Thead>
           <Tr>

@@ -19,9 +19,12 @@
     "@chakra-ui/react": "^1.6.3",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
+    "axios": "^0.21.1",
     "formik": "^2.2.9",
     "framer-motion": "^4",
+    "js-cookie": "^2.2.1",
     "next": "latest",
+    "nookies": "^2.5.2",
     "palx": "^1.0.3",
     "react": "^17.0.1",
     "react-countdown": "^2.3.2",
@@ -31,6 +34,7 @@
     "yup": "^0.32.9"
   },
   "devDependencies": {
+    "@types/js-cookie": "^2.2.6",
     "@types/node": "^15.12.2",
     "@types/palx": "^1.0.1",
     "@types/react": "^17.0.10",

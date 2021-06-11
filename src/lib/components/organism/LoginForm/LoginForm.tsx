@@ -10,15 +10,16 @@ import { Field, FieldProps, Form, Formik } from 'formik';
 
 import * as validators from 'lib/validators';
 
+import { useAuth } from '@contexts/AuthProvider/AuthProvider';
+
 function LoginForm() {
+  const { login } = useAuth();
+
   return (
     <Formik
       initialValues={{ email: '', password: '' }}
-      onSubmit={(values, actions) => {
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
-          actions.setSubmitting(false);
-        }, 1000);
+      onSubmit={(values) => {
+        if (login) return login(values);
       }}
       validationSchema={validators.LoginSchema}
     >

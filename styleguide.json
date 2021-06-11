@@ -30,5 +30,6 @@
     "brand": "Theatro Municipal",
     "banner": "Shows transmitidos diretamente do Theatro Municipal de São Paulo.",
     "login": "Espetáculos do Theatro Municipal onde você estiver."
-  }
+  },
+  "public_home": false
 }
