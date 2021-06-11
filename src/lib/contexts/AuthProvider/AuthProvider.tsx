@@ -57,9 +57,7 @@ function AuthProvider({ children }: { children: ReactNode }) {
   const login = async (values: Login) => {
     try {
       const response = await AuthAPI.login(values);
-      setCookie(null, ACCESS_TOKEN, response.data?.token, {
-        maxAge: 60 * 60 * 1, // 1 Hour
-      });
+      setCookie(null, ACCESS_TOKEN, response.data?.token);
       setIsAuthenticated(true);
       updateUser();
       router.push('/');

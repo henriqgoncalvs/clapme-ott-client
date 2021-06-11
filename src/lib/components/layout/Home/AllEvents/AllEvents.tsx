@@ -58,9 +58,6 @@ function AllEvents({ events }: Props) {
               >
                 <FaRegSadTear className="mr-3 mt-1" fontSize={30} />
                 Ainda não existe eventos passados
-                {/* <div className="w-full flex items-center justify-center">
-                  <p className="text-2xl">Ainda não existe eventos passados</p>
-                </div> */}
               </Box>
             </Box>
           </Box>

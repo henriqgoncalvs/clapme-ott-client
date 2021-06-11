@@ -3,10 +3,14 @@ import { Button } from '@chakra-ui/button';
 import { Center, Flex, Text, Wrap, WrapItem } from '@chakra-ui/layout';
 import Link from 'next/link';
 
-function Countdown() {
+type Props = {
+  endDate: string;
+};
+
+function Countdown({ endDate }: Props) {
   return (
     <RCountdown
-      date={Date.now() + 5000}
+      date={endDate}
       renderer={({ days, hours, minutes, seconds, completed }) => {
         if (completed) {
           return (
@@ -34,7 +38,7 @@ function Countdown() {
                       className="bg-text-solid-text-c bg-opacity-60 text-solid-c rounded-xl p-1"
                       w="40px"
                       h="40px"
-                      bg="red.200"
+                      bg="primary-c.200"
                     >
                       <Text fontSize="xl">{days < 10 ? `0${days}` : days}</Text>
                     </Center>
@@ -56,7 +60,7 @@ function Countdown() {
                       className="bg-text-solid-text-c bg-opacity-60 text-solid-c rounded-xl p-1"
                       w="40px"
                       h="40px"
-                      bg="red.200"
+                      bg="primary-c.200"
                     >
                       <Text fontSize="xl">
                         {hours < 10 ? `0${hours}` : hours}
@@ -80,7 +84,7 @@ function Countdown() {
                       className="bg-text-solid-text-c bg-opacity-60 text-solid-c rounded-xl p-1"
                       w="40px"
                       h="40px"
-                      bg="red.200"
+                      bg="primary-c.200"
                     >
                       <Text fontSize="xl">
                         {minutes < 10 ? `0${minutes}` : minutes}
@@ -104,7 +108,7 @@ function Countdown() {
                       className="bg-text-solid-text-c bg-opacity-60 text-solid-c rounded-xl p-1"
                       w="40px"
                       h="40px"
-                      bg="red.200"
+                      bg="primary-c.200"
                     >
                       <Text fontSize="xl">
                         {seconds < 10 ? `0${seconds}` : seconds}

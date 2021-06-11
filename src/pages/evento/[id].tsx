@@ -1,8 +1,18 @@
 import { Box, Center, Container, Flex, Stack, Text } from '@chakra-ui/react';
+import { GetServerSideProps } from 'next';
+import { parseCookies } from 'nookies';
+
+import { EventsAPI } from 'core/api/fetchers';
+import { ACCESS_TOKEN } from 'core/config';
+import { EventI } from 'lib/types/api/events';
 
 import Countdown from '@organism/Countdown';
 
-function Event() {
+type Props = {
+  event: EventI;
+};
+
+function Event({ event }: Props) {
   return (
     <Container
       py="16"
@@ -33,7 +43,7 @@ function Event() {
             flex="1"
             p={8}
             h="100%"
-            bgImg="/img/o-terno.png"
+            bgImg={event.og_url}
             bgPos="center"
             bgSize="cover"
           />
@@ -56,25 +66,43 @@ function Event() {
               height={{ base: '100%', md: '80%' }}
             >
               <Flex align="center" direction="column">
-                <h1>O Terno</h1>
-                <Text textAlign="center">
-                  A banda paulistana cantará o álbum {'<atrás/além>'} e outros
-                  sucessos.
-                </Text>
+                <h1 className="mb-5">{event.title}</h1>
+                <Text textAlign="center">{event.description}</Text>
               </Flex>
 
-              <Countdown />
+              <Countdown endDate={event.premiere_date} />
             </Stack>
           </Box>
         </Flex>
       </Center>
 
       <img
-        src="/img/o-terno.png"
+        src={event.og_url}
         className="absolute w-screen h-screen top-0 left-0 object-cover z-10 filter blur-sm"
       />
     </Container>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const token = parseCookies(ctx)[ACCESS_TOKEN];
+  const id: string | string[] | undefined = ctx.params?.id;
+
+  if (token) {
+    const eventResponse = await EventsAPI.showEvent(id, token);
+
+    const eventData: EventI = eventResponse.data.data;
+
+    return {
+      props: {
+        event: eventData,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+};
 
 export default Event;
