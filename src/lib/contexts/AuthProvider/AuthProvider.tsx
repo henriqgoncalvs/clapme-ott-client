@@ -26,7 +26,7 @@ function AuthProvider({ children }: { children: ReactNode }) {
 
   const router = useRouter();
 
-  useEffect(() => {
+  const updateUser = () => {
     const token = parseCookies()[ACCESS_TOKEN];
 
     if (token) {
@@ -37,13 +37,22 @@ function AuthProvider({ children }: { children: ReactNode }) {
           setIsAuthenticated(true);
         } catch {
           setIsAuthenticated(false);
+          toast({
+            position: 'top',
+            title: 'Erro no carregamento das informações do usuário.',
+            description:
+              'Estamos passando por uma manutenção, tente novamente mais tarde.',
+            status: 'error',
+            duration: 5000,
+            isClosable: true,
+          });
         }
       };
       fetchMe();
     } else {
       setIsAuthenticated(false);
     }
-  }, []);
+  };
 
   const login = async (values: Login) => {
     try {
@@ -52,6 +61,8 @@ function AuthProvider({ children }: { children: ReactNode }) {
         maxAge: 60 * 60 * 1, // 1 Hour
       });
       setIsAuthenticated(true);
+      updateUser();
+      router.push('/');
     } catch (err) {
       toast({
         position: 'top',
@@ -67,8 +78,21 @@ function AuthProvider({ children }: { children: ReactNode }) {
 
   const logout = () => {
     destroyCookie(null, ACCESS_TOKEN);
+    setIsAuthenticated(false);
+    setUser(null);
+    toast({
+      position: 'top',
+      title: 'Deslogado com sucesso.',
+      status: 'success',
+      duration: 5000,
+      isClosable: true,
+    });
     router.push('/entrar');
   };
+
+  useEffect(() => {
+    updateUser();
+  }, []);
 
   const values = {
     isAuthenticated,

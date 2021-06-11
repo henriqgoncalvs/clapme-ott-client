@@ -85,6 +85,44 @@ const theme = extendTheme({
         },
       },
     },
+    IconButton: {
+      defaultProps: {
+        variant: 'filled',
+      },
+      variants: {
+        filled: {
+          bg: 'primary-c.500',
+          color: 'secondary-c',
+          _hover: {
+            bg: 'primary-c.800',
+          },
+          _active: {
+            bg: 'primary-c.800',
+          },
+          _focus: {
+            bg: 'primary-c.800',
+          },
+        },
+        outline: {
+          bg: 'transparent',
+          borderColor: 'primary-c.500',
+          color: 'primary-c.500',
+          border: '1px',
+          _hover: {
+            bg: 'primary-c.800',
+            color: 'secondary-c',
+          },
+          _active: {
+            bg: 'primary-c.800',
+            color: 'secondary-c',
+          },
+          _focus: {
+            bg: 'primary-c.800',
+            color: 'secondary-c',
+          },
+        },
+      },
+    },
   },
 });
 

@@ -8,10 +8,10 @@ import { EventCardProps } from 'lib/types/components';
 import parseLongString from '@utils/parseLongString';
 
 function EventCard({
-  title = 'O Terno',
-  description = 'Theatro Municipal de São Paulo- São Paulo',
-  imgUrl = '/img/dgd.jpg',
-  date = '12 MAI - 22H',
+  title = '-',
+  description = '-',
+  imgUrl = 'https://149361159.v2.pressablecdn.com/wp-content/uploads/2021/01/placeholder.png',
+  date = 'DD MMM - HHh',
   id = '1',
 }: EventCardProps) {
   return (
@@ -66,9 +66,9 @@ function EventCard({
         </Box>
 
         <Box d="flex" mt="4" alignSelf="center">
-          <Link href={`/comprar/${id}`} passHref>
+          <Link href={`/evento/${id}`} passHref>
             <Button className="uppercase" size="md">
-              COMPRAR
+              Adicionar ao carrinho
             </Button>
           </Link>
         </Box>

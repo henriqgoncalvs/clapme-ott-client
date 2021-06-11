@@ -4,7 +4,7 @@ import { EventCardCartProps } from 'lib/types/components';
 
 import parseLongString from '@utils/parseLongString';
 
-function EventCard({
+function EventCardCart({
   title = 'O Terno',
   description = 'Theatro Municipal de São Paulo- São Paulo',
   date = '12 MAI - 22H',
@@ -54,4 +54,4 @@ function EventCard({
   );
 }
 
-export default EventCard;
+export default EventCardCart;

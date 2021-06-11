@@ -1,5 +1,3 @@
-import { FiLogOut } from 'react-icons/fi';
-import { Button } from '@chakra-ui/button';
 import { Box, Flex } from '@chakra-ui/layout';
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/tabs';
 
@@ -30,12 +28,6 @@ function ProfileLayout() {
           </TabPanel>
         </TabPanels>
       </Tabs>
-
-      <Box w={{ base: '100%', sm: '100%', md: '200px' }}>
-        <Button size="md" leftIcon={<FiLogOut />}>
-          Sair
-        </Button>
-      </Box>
     </Flex>
   );
 }
