@@ -20,10 +20,7 @@ function Footer() {
       bg="solid-c"
     >
       <Stack maxW="7xl" flex="1" spacing="10" divider={<StackDivider />}>
-        <Stack
-          direction={{ base: 'column', lg: 'row' }}
-          spacing={{ base: '10', lg: '28' }}
-        >
+        <Stack direction="row" spacing={{ base: '10', lg: '28' }}>
           <Box
             flex="1"
             d="flex"
