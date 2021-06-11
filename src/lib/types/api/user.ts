@@ -17,7 +17,7 @@ export type RegisterUser = {
   password_confirmation: string;
   cpf: string;
   phone: string;
-  company_id: number;
+  company_token: number;
 };
 
 export type UpdateUser = {

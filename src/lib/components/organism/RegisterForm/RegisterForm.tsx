@@ -52,10 +52,13 @@ function RegisterForm() {
         password_confirmation: '',
         cpf: '',
         phone: '',
-        company_id: 1,
       }}
       onSubmit={(values) => {
-        return handleRegister(values);
+        return handleRegister({
+          ...values,
+          company_token: Number(process.env.NEXT_PUBLIC_COMPANY_TOKEN),
+          cpf: values.cpf.replaceAll('.', '').replace('-', ''),
+        });
       }}
       validationSchema={validators.RegisterSchema}
     >
@@ -177,7 +180,7 @@ function RegisterForm() {
                   <FormLabel htmlFor="phone">Número de telefone</FormLabel>
                   <InputMask
                     {...field}
-                    mask="(99) 9 9999-9999"
+                    mask="(99) 99999-9999"
                     name="phone"
                     onChange={(e) => {
                       const value = e.target.value || '';

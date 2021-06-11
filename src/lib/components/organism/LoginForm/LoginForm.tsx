@@ -1,12 +1,17 @@
 import {
   Button,
+  Center,
   Container,
   FormControl,
   FormErrorMessage,
   FormLabel,
   Input,
+  Link as ChakraLink,
+  Stack,
+  Text,
 } from '@chakra-ui/react';
 import { Field, FieldProps, Form, Formik } from 'formik';
+import Link from 'next/link';
 
 import * as validators from 'lib/validators';
 
@@ -69,6 +74,15 @@ function LoginForm() {
               Entrar
             </Button>
           </Container>
+
+          <Center>
+            <Stack direction={{ base: 'column', md: 'row' }} fontWeight="bold">
+              <Text>Não tem uma conta?</Text>
+              <Link href="/cadastrar" passHref>
+                <ChakraLink color="primary-c.500">Cadastre-se.</ChakraLink>
+              </Link>
+            </Stack>
+          </Center>
         </Form>
       )}
     </Formik>

@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import { Center, Container, Flex } from '@chakra-ui/layout';
 import { Spinner } from '@chakra-ui/spinner';
-import { GetStaticProps } from 'next';
+import dayjs from 'dayjs';
+import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { parseCookies } from 'nookies';
 
@@ -13,14 +14,16 @@ import styleguide from '@root/styleguide.json';
 
 import { useAuth } from '@contexts/AuthProvider/AuthProvider';
 
+import AllEvents from '@layout/Home/AllEvents';
 import Header from '@layout/Home/Header';
 import NextEvents from '@layout/Home/NextEvents';
 
 type Props = {
-  nextEventsData: EventI[];
+  nextEvents: EventI[];
+  events: EventI[];
 };
 
-export default function Home({ nextEventsData }: Props) {
+export default function Home({ nextEvents, events }: Props) {
   const { isAuthenticated, user } = useAuth();
   const router = useRouter();
 
@@ -46,22 +49,30 @@ export default function Home({ nextEventsData }: Props) {
   return (
     <>
       <Header />
-      <NextEvents nextEvents={nextEventsData} />
+      <NextEvents nextEvents={nextEvents} />
+      <AllEvents
+        events={events.filter((event) =>
+          dayjs().isAfter(dayjs(event.premiere_date)),
+        )}
+      />
     </>
   );
 }
 
-export const getStaticProps: GetStaticProps = async () => {
-  const token = parseCookies()[ACCESS_TOKEN];
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const token = parseCookies(ctx)[ACCESS_TOKEN];
 
   if (token) {
-    const response = await EventsAPI.nextEvents();
+    const nextEventsresponse = await EventsAPI.nextEvents(token);
+    const eventsresponse = await EventsAPI.events(token);
 
-    const nextEventsData: EventI = response.data;
+    const nextEventsData: EventI[] = nextEventsresponse.data.data;
+    const eventsData: EventI[] = eventsresponse.data.data;
 
     return {
       props: {
-        events: nextEventsData,
+        nextEvents: nextEventsData,
+        events: eventsData,
       },
     };
   }

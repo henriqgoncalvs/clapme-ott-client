@@ -1,5 +1,6 @@
 import { Button } from '@chakra-ui/button';
 import { Badge, Box } from '@chakra-ui/layout';
+import dayjs from 'dayjs';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -7,13 +8,10 @@ import { EventCardProps } from 'lib/types/components';
 
 import parseLongString from '@utils/parseLongString';
 
-function EventCard({
-  title = '-',
-  description = '-',
-  imgUrl = 'https://149361159.v2.pressablecdn.com/wp-content/uploads/2021/01/placeholder.png',
-  date = 'DD MMM - HHh',
-  id = '1',
-}: EventCardProps) {
+import 'dayjs/locale/pt-br';
+
+function EventCard({ title, description, imgUrl, date, id }: EventCardProps) {
+  console.log(imgUrl, id);
   return (
     <Box
       w="100%"
@@ -26,7 +24,12 @@ function EventCard({
       flexDirection="column"
     >
       <Image
-        src={imgUrl}
+        src={
+          imgUrl !== 'string'
+            ? imgUrl ||
+              'https://149361159.v2.pressablecdn.com/wp-content/uploads/2021/01/placeholder.png'
+            : 'https://149361159.v2.pressablecdn.com/wp-content/uploads/2021/01/placeholder.png'
+        }
         alt={title}
         width={1280}
         height={720}
@@ -45,8 +48,13 @@ function EventCard({
       >
         <Box>
           <Box d="flex" alignItems="baseline">
-            <Badge borderRadius="full" px="2" colorScheme="primary-c">
-              {date}
+            <Badge
+              borderRadius="full"
+              px="2"
+              bg="primary-c.500"
+              color="secondary-c"
+            >
+              {dayjs(date).locale('pt-br').format('DD MMM - HH:mm')}
             </Badge>
           </Box>
           <Box

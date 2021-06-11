@@ -25,15 +25,6 @@ function NextEvents({ nextEvents }: Props) {
             />
           </div>
         ))}
-        <div className="w-full flex items-center justify-center">
-          <EventCard
-            title="Mockado DGD"
-            description="Apresentação da banda Dance Gavin Dance faksdlfjasl;dkfjal;sdjfl;asdjkfl;ajdfl;adjkfl;adsjkf;"
-            date="21 MAI - 22H"
-            id={1}
-            imgUrl="/img/dgd.jpg"
-          />
-        </div>
       </section>
     </section>
   );

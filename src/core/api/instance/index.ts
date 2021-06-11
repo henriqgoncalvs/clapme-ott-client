@@ -25,8 +25,10 @@ export default {
     return unathenticatedInstance;
   },
 
-  authorized() {
-    authenticatedInstance.defaults.headers.common.Authorization = `Bearer ${tokenCookies.getAccess()}`;
+  authorized(token?: string) {
+    authenticatedInstance.defaults.headers.common.Authorization = token
+      ? `Bearer ${token}`
+      : `Bearer ${tokenCookies.getAccess()}`;
     authenticatedInstance.interceptors.response.use(
       (response: AxiosResponse) => response,
       async (error) => {

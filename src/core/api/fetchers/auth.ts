@@ -6,4 +6,4 @@ export const login = async (body: Login) =>
   instance.unauthorized().post(`/login`, body);
 
 export const register = async (body: RegisterUser) =>
-  instance.unauthorized().post(`/login`, body);
+  instance.unauthorized().post(`/register`, body);
