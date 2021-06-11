@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 
-import { TokenCookies, UserIDCookies } from 'core/api/Cookies';
+import { TokenCookies } from 'core/api/Cookies';
 import { API_URL } from 'core/config';
 
 const config: Partial<AxiosRequestConfig> = {
@@ -11,7 +11,6 @@ const config: Partial<AxiosRequestConfig> = {
 };
 
 const tokenCookies = new TokenCookies();
-const userIDCookies = new UserIDCookies();
 
 const unathenticatedInstance: AxiosInstance = axios.create(config);
 const authenticatedInstance: AxiosInstance = axios.create(config);
@@ -35,7 +34,6 @@ export default {
           const logout = () => {
             tokenCookies.removeAccess();
             tokenCookies.removeRefresh();
-            userIDCookies.remove();
           };
 
           try {

@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie';
 
-import { ACCESS_TOKEN, REFRESH_TOKEN, USER_ID } from 'core/config';
+import { ACCESS_TOKEN, REFRESH_TOKEN } from 'core/config';
 
 export class TokenCookies {
   getAccess() {
@@ -21,19 +21,5 @@ export class TokenCookies {
 
   removeRefresh() {
     return Cookies.remove(REFRESH_TOKEN);
-  }
-}
-
-export class UserIDCookies {
-  get() {
-    return Cookies.get(USER_ID);
-  }
-
-  set(token: string) {
-    return Cookies.set(USER_ID, token);
-  }
-
-  remove() {
-    return Cookies.remove(USER_ID);
   }
 }
