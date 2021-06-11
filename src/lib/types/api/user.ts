@@ -2,6 +2,7 @@ export type User = {
   name: string;
   email: string;
   phone: string;
+  cpf: string;
   is_active: boolean;
   role: string;
   last_login: string;
@@ -21,14 +22,20 @@ export type RegisterUser = {
 };
 
 export type UpdateUser = {
-  id: string;
+  id?: number;
   body: {
     name?: string;
     email?: string;
-    password?: string;
-    password_confirmation?: string;
     cpf?: string;
     phone?: string;
     company_id?: number;
+  };
+};
+
+export type UpdateUserPass = {
+  id?: number;
+  body: {
+    password?: string;
+    password_confirmation?: string;
   };
 };

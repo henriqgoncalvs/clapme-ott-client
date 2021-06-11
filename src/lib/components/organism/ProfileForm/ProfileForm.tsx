@@ -7,28 +7,60 @@ import {
   FormErrorMessage,
   FormLabel,
   Input,
+  useToast,
 } from '@chakra-ui/react';
 import { Field, FieldProps, Form, Formik } from 'formik';
 
+import { UserAPI } from 'core/api/fetchers';
+import { UpdateUser } from 'lib/types/user';
 import * as validators from 'lib/validators';
 
+import { useAuth } from '@contexts/AuthProvider/AuthProvider';
+
 function ProfileForm() {
+  const { user } = useAuth();
+  const toast = useToast();
+
+  const handleUpdate = async (values: UpdateUser) => {
+    try {
+      const response = await UserAPI.updateMe({
+        id: user?.id,
+        body: values,
+      });
+
+      if (response.status === 201) {
+        toast({
+          position: 'top',
+          title: 'Usuário editado com sucesso.',
+          status: 'success',
+          duration: 5000,
+          isClosable: true,
+        });
+      }
+    } catch (err) {
+      toast({
+        position: 'top',
+        title: 'Erro na edição do usuário.',
+        description: 'Verifique os campos e tente novamente.',
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      });
+    }
+  };
+
   return (
     <Formik
       initialValues={{
-        name: 'Henrique',
-        email: 'henrique@gravidadezero.space',
-        password: '123456',
-        cpf: '10850753465',
-        phone: '87988254611',
+        name: user?.name,
+        email: user?.email,
+        cpf: user?.cpf,
+        phone: user?.phone,
       }}
-      onSubmit={(values, actions) => {
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
-          actions.setSubmitting(false);
-        }, 1000);
+      onSubmit={(values) => {
+        return handleUpdate(values);
       }}
-      validationSchema={validators.LoginSchema}
+      validationSchema={validators.UpdateMeSchema}
     >
       {({ isSubmitting, setFieldValue, dirty }) => (
         <Form>
@@ -68,23 +100,7 @@ function ProfileForm() {
                 </FormControl>
               )}
             </Field>
-            <Field name="password">
-              {({ field, form }: FieldProps) => (
-                <FormControl
-                  isInvalid={!!(form.errors.password && form.touched.password)}
-                  mb="6"
-                >
-                  <FormLabel htmlFor="password">Senha</FormLabel>
-                  <Input
-                    {...field}
-                    id="password"
-                    type="password"
-                    placeholder="Digite aqui sua senha"
-                  />
-                  <FormErrorMessage>{form.errors.password}</FormErrorMessage>
-                </FormControl>
-              )}
-            </Field>
+
             <Field name="cpf">
               {({ field, form }: FieldProps) => (
                 <FormControl
@@ -122,7 +138,7 @@ function ProfileForm() {
                   <FormLabel htmlFor="phone">Número de telefone</FormLabel>
                   <InputMask
                     {...field}
-                    mask="(99) 9 9999-9999"
+                    mask="(99) 99999-9999"
                     name="phone"
                     onChange={(e) => {
                       const value = e.target.value || '';

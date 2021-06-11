@@ -1,5 +1,5 @@
 import { Login } from 'lib/types/api/auth';
-import { User } from 'lib/types/api/user';
+import { User } from 'lib/types/user';
 
 export type AuthProviderI = {
   isAuthenticated: boolean | null;

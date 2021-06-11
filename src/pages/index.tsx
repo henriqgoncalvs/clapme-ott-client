@@ -1,6 +1,4 @@
 import { useEffect } from 'react';
-import { Center, Container, Flex } from '@chakra-ui/layout';
-import { Spinner } from '@chakra-ui/spinner';
 import dayjs from 'dayjs';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
@@ -17,6 +15,7 @@ import { useAuth } from '@contexts/AuthProvider/AuthProvider';
 import AllEvents from '@layout/Home/AllEvents';
 import Header from '@layout/Home/Header';
 import NextEvents from '@layout/Home/NextEvents';
+import PageLoading from '@layout/PageLoading';
 
 type Props = {
   nextEvents: EventI[];
@@ -33,18 +32,7 @@ export default function Home({ nextEvents, events }: Props) {
     }
   }, [isAuthenticated]);
 
-  if (!user) {
-    return (
-      <Container w="100vw" h="100vh">
-        <Center h="100%" w="100%">
-          <Flex direction="column" align="center">
-            <Spinner thickness="4px" color="primary-c.500" />
-            <h1>Carregando...</h1>
-          </Flex>
-        </Center>
-      </Container>
-    );
-  }
+  if (!user) return <PageLoading />;
 
   return (
     <>

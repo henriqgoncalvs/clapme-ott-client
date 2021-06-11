@@ -12,8 +12,8 @@ import { destroyCookie, parseCookies, setCookie } from 'nookies';
 import { AuthAPI, UserAPI } from 'core/api/fetchers';
 import { ACCESS_TOKEN } from 'core/config';
 import { Login } from 'lib/types/api/auth';
-import { User } from 'lib/types/api/user';
 import { AuthProviderI } from 'lib/types/contexts/auth-provider';
+import { User } from 'lib/types/user';
 
 const AuthContext = createContext({} as AuthProviderI);
 

@@ -1,10 +1,18 @@
+import { useEffect } from 'react';
 import { Box, Center, Container, Flex, Stack, Text } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
+import { useRouter } from 'next/router';
 import { parseCookies } from 'nookies';
 
 import { EventsAPI } from 'core/api/fetchers';
 import { ACCESS_TOKEN } from 'core/config';
 import { EventI } from 'lib/types/api/events';
+
+import styleguide from '@root/styleguide.json';
+
+import { useAuth } from '@contexts/AuthProvider/AuthProvider';
+
+import PageLoading from '@layout/PageLoading';
 
 import Countdown from '@organism/Countdown';
 
@@ -13,6 +21,17 @@ type Props = {
 };
 
 function Event({ event }: Props) {
+  const { isAuthenticated, user } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (isAuthenticated === false && !styleguide.public_home) {
+      router.push('/');
+    }
+  }, [isAuthenticated]);
+
+  if (!user) return <PageLoading />;
+
   return (
     <Container
       py="16"

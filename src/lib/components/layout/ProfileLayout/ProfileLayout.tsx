@@ -2,6 +2,7 @@ import { Box, Flex } from '@chakra-ui/layout';
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/tabs';
 
 import MyPurchase from '@organism/MyPurchase';
+import PasswordChangeForm from '@organism/PasswordChangeForm';
 import ProfileForm from '@organism/ProfileForm';
 
 function ProfileLayout() {
@@ -12,6 +13,7 @@ function ProfileLayout() {
       <Tabs colorScheme="primary-c">
         <TabList>
           <Tab>Meus perfil</Tab>
+          <Tab>Mudar senha</Tab>
           <Tab>Meus pedidos</Tab>
         </TabList>
 
@@ -20,6 +22,13 @@ function ProfileLayout() {
             <Flex w="100%" mx="auto" my="8" direction="column">
               <Box w="100%" flex="1">
                 <ProfileForm />
+              </Box>
+            </Flex>
+          </TabPanel>
+          <TabPanel>
+            <Flex w="100%" mx="auto" my="8" direction="column">
+              <Box w="100%" flex="1">
+                <PasswordChangeForm />
               </Box>
             </Flex>
           </TabPanel>
