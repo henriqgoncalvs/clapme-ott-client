@@ -107,7 +107,7 @@ function Navbar() {
               </PopoverContent>
             </Popover>
           ) : (
-            <Link href="/cadastrar" passHref>
+            <Link href="/cadastro" passHref>
               <Button className="uppercase" variant="outline" size={btnSize}>
                 Cadastrar
               </Button>

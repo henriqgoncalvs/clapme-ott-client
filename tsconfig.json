@@ -6,7 +6,6 @@
       "@organism/*": ["lib/components/organism/*"],
       "@layout/*": ["lib/components/layout/*"],
       "@contexts/*": ["lib/contexts/*"],
-      "@types/*": ["lib/types/*"],
       "@utils/*": ["lib/utils/*"],
       "@hooks/*": ["lib/hooks/*"],
       "@root/*": ["../*"],
