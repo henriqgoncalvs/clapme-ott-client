@@ -1,21 +1,22 @@
 import { MdDeleteForever } from 'react-icons/md';
-import {
-  Box,
-  Center,
-  Flex,
-  IconButton,
-  NumberDecrementStepper,
-  NumberIncrementStepper,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
-  Stack,
-  Text,
-} from '@chakra-ui/react';
+import { Box, Center, Flex, IconButton, Stack, Text } from '@chakra-ui/react';
+
+import { CartItemI } from 'lib/types/contexts/cart';
+
+import { useCart } from '@contexts/CartProvider';
 
 import EventCardCart from '../EventCardCart';
 
-function CartItem() {
+function CartItem({
+  id,
+  title,
+  description,
+  date,
+  imgUrl,
+  productId,
+}: CartItemI) {
+  const { removeFromCart } = useCart();
+
   return (
     <Stack
       justifyContent="space-between"
@@ -24,10 +25,11 @@ function CartItem() {
     >
       <Box flex="1" mr={{ base: 0, md: 6 }} mb={{ base: 6, md: 0 }}>
         <EventCardCart
-          title="O Terno"
-          description="Apresentação da banda O Terno"
-          date="12 MAI - 22H"
-          imgUrl="/img/o-terno.png"
+          productId={productId}
+          title={title}
+          description={description}
+          date={date}
+          imgUrl={imgUrl}
         />
       </Box>
 
@@ -37,10 +39,10 @@ function CartItem() {
             <Text fontWeight="bold" mb="6">
               Valor
             </Text>
-            <p>R$ 100,00</p>
+            <p>R$ 00,00</p>
           </Flex>
 
-          <Flex direction="column" alignItems="center" flex="1">
+          {/* <Flex direction="column" alignItems="center" flex="1">
             <Text fontWeight="bold" mb="4">
               Quantidade
             </Text>
@@ -53,13 +55,13 @@ function CartItem() {
                 </NumberInputStepper>
               </NumberInput>
             </Box>
-          </Flex>
+          </Flex> */}
 
           <Center flex="0.6">
             <IconButton
-              as="button"
               aria-label="Remove"
               icon={<MdDeleteForever fontSize="20px" />}
+              onClick={() => removeFromCart(id)}
             />
           </Center>
         </Flex>

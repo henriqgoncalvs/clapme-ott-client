@@ -1,3 +1,5 @@
+import { BoughtProducts } from './api/product';
+
 export type User = {
   id: number;
   name: string;
@@ -10,6 +12,7 @@ export type User = {
   first_login: string;
   created_at: string;
   updated_at: string;
+  boughtProducts: BoughtProducts[];
 };
 
 export type UpdateUser = {

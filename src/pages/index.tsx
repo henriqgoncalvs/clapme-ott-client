@@ -4,9 +4,9 @@ import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { parseCookies } from 'nookies';
 
-import { EventsAPI } from 'core/api/fetchers';
+import { ProductsAPI } from 'core/api/fetchers';
 import { ACCESS_TOKEN } from 'core/config';
-import { EventI } from 'lib/types/api/events';
+import { ProductI } from 'lib/types/api/product';
 
 import styleguide from '@root/styleguide.json';
 
@@ -18,11 +18,10 @@ import NextEvents from '@layout/Home/NextEvents';
 import PageLoading from '@layout/PageLoading';
 
 type Props = {
-  nextEvents: EventI[];
-  events: EventI[];
+  products: ProductI[];
 };
 
-export default function Home({ events }: Props) {
+export default function Home({ products }: Props) {
   const { isAuthenticated, user } = useAuth();
   const router = useRouter();
 
@@ -38,13 +37,13 @@ export default function Home({ events }: Props) {
     <>
       <Header />
       <NextEvents
-        nextEvents={events.filter((event) =>
-          dayjs().isBefore(dayjs(event.premiere_date)),
+        nextProducts={products.filter((product) =>
+          dayjs().isBefore(dayjs(product.events[0].premiere_date)),
         )}
       />
       <AllEvents
-        events={events.filter((event) =>
-          dayjs().isAfter(dayjs(event.premiere_date)),
+        products={products.filter((product) =>
+          dayjs().isAfter(dayjs(product.events[0].premiere_date)),
         )}
       />
     </>
@@ -56,15 +55,16 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   if (token) {
     // const nextEventsresponse = await EventsAPI.nextEvents(token);
-    const eventsresponse = await EventsAPI.events(token);
+    // const eventsresponse = await EventsAPI.events(token);
+    const productsResponse = await ProductsAPI.get(token);
 
     // const nextEventsData: EventI[] = nextEventsresponse.data.data;
-    const eventsData: EventI[] = eventsresponse.data.data;
+    const productsData: ProductI[] = productsResponse.data.data;
 
     return {
       props: {
         // nextEvents: nextEventsData,
-        events: eventsData,
+        products: productsData,
       },
     };
   }

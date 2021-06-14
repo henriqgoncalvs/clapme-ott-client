@@ -9,9 +9,10 @@ import { useToast } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { destroyCookie, parseCookies, setCookie } from 'nookies';
 
-import { AuthAPI, UserAPI } from 'core/api/fetchers';
+import { AuthAPI, ProductsAPI, UserAPI } from 'core/api/fetchers';
 import { ACCESS_TOKEN } from 'core/config';
 import { Login } from 'lib/types/api/auth';
+import { BoughtProducts } from 'lib/types/api/product';
 import { AuthProviderI } from 'lib/types/contexts/auth-provider';
 import { User } from 'lib/types/user';
 
@@ -21,6 +22,7 @@ function AuthProvider({ children }: { children: ReactNode }) {
   const toast = useToast();
 
   const [user, setUser] = useState<User | null>(null);
+  const [boughtProducts, setBoughtProducts] = useState<BoughtProducts[]>([]);
 
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
 
@@ -34,7 +36,6 @@ function AuthProvider({ children }: { children: ReactNode }) {
         try {
           const meResponse = await UserAPI.me();
 
-          console.log(meResponse, meResponse.data.message);
           if (meResponse.status === 403) {
             if (
               meResponse.data.message === 'Your email address is not verified.'
@@ -69,7 +70,28 @@ function AuthProvider({ children }: { children: ReactNode }) {
           });
         }
       };
+
+      const fetchBoughtProducts = async () => {
+        const boughtProductsResponse = await ProductsAPI.boughtProducts();
+
+        setBoughtProducts(boughtProductsResponse.data);
+
+        if (boughtProductsResponse.status === 403) {
+          toast({
+            position: 'top',
+            title: 'Ocorreu um erro na verificação dos seus itens comprados.',
+            description: 'Entre em contato com o suporte.',
+            status: 'error',
+            duration: 5000,
+            isClosable: true,
+          });
+
+          return logout();
+        }
+      };
+
       fetchMe();
+      fetchBoughtProducts();
     } else {
       setIsAuthenticated(false);
     }
@@ -115,6 +137,7 @@ function AuthProvider({ children }: { children: ReactNode }) {
   const values = {
     isAuthenticated,
     user,
+    boughtProducts,
     setUser,
     login,
     logout,

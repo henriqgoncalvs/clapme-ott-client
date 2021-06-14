@@ -8,6 +8,9 @@ import { EventCardProps } from 'lib/types/components';
 
 import parseLongString from '@utils/parseLongString';
 
+import { useAuth } from '@contexts/AuthProvider/AuthProvider';
+import { useCart } from '@contexts/CartProvider';
+
 import 'dayjs/locale/pt-br';
 
 function EventCard({
@@ -17,7 +20,11 @@ function EventCard({
   date,
   id,
   artists,
+  productId,
 }: EventCardProps) {
+  const { addToCart } = useCart();
+  const { boughtProducts } = useAuth();
+
   return (
     <Box
       w="100%"
@@ -93,11 +100,35 @@ function EventCard({
         </Box>
 
         <Box d="flex" mt="4" alignSelf="center">
-          <Link href={`/evento/${id}`} passHref>
-            <Button className="uppercase" size="md">
+          {boughtProducts.filter(
+            (bp) =>
+              bp.product.filter(
+                (p) => p.events.filter((e) => e.id === id).length,
+              ).length,
+          ).length ? (
+            <Link href={`/evento/${id}`} passHref>
+              <Button className="uppercase" size="md">
+                Assistir
+              </Button>
+            </Link>
+          ) : (
+            <Button
+              className="uppercase"
+              size="md"
+              onClick={() =>
+                addToCart({
+                  date,
+                  id,
+                  title,
+                  description,
+                  imgUrl,
+                  productId,
+                })
+              }
+            >
               Adicionar ao carrinho
             </Button>
-          </Link>
+          )}
         </Box>
       </Box>
     </Box>

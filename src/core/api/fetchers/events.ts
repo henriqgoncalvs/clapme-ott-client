@@ -8,3 +8,6 @@ export const events = async (token?: string) =>
 
 export const nextEvents = async (token?: string) =>
   instance.authorized(token).get('/client/next-events');
+
+export const watch = async (id?: string | string[], token?: string) =>
+  instance.authorized(token).get(`/client/watch/${id}`);

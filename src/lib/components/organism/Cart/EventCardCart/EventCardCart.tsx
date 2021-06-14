@@ -1,14 +1,17 @@
 import { Badge, Box, Stack } from '@chakra-ui/layout';
+import dayjs from 'dayjs';
 
 import { EventCardCartProps } from 'lib/types/components';
 
 import parseLongString from '@utils/parseLongString';
 
+import 'dayjs/locale/pt-br';
+
 function EventCardCart({
   title = 'O Terno',
   description = 'Theatro Municipal de São Paulo- São Paulo',
   date = '12 MAI - 22H',
-}: EventCardCartProps) {
+}: Omit<EventCardCartProps, 'id'>) {
   return (
     <Stack
       w="100%"
@@ -29,8 +32,13 @@ function EventCardCart({
       >
         <Box>
           <Box d="flex" alignItems="baseline">
-            <Badge borderRadius="full" px="2" colorScheme="primary-c">
-              {date}
+            <Badge
+              borderRadius="full"
+              px="2"
+              bg="primary-c.500"
+              color="secondary-c"
+            >
+              {dayjs(date).locale('pt-br').format('DD MMM - HH:mm')}
             </Badge>
           </Box>
           <Box
