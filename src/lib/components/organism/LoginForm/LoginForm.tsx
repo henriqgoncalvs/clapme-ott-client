@@ -77,6 +77,13 @@ function LoginForm() {
 
           <Center>
             <Stack direction={{ base: 'column', md: 'row' }} fontWeight="bold">
+              <Link href="/esqueci-a-senha" passHref>
+                <ChakraLink color="primary-c.500">Esqueci a senha.</ChakraLink>
+              </Link>
+            </Stack>
+          </Center>
+          <Center>
+            <Stack direction={{ base: 'column', md: 'row' }} fontWeight="bold">
               <Text>Não tem uma conta?</Text>
               <Link href="/cadastro" passHref>
                 <ChakraLink color="primary-c.500">Cadastre-se.</ChakraLink>

@@ -50,3 +50,14 @@ export const PassChangeSchema = Yup.object().shape({
   password,
   password_confirmation,
 });
+
+export const ForgotPassSchema = Yup.object().shape({
+  email,
+});
+
+export const ResetPassSchema = Yup.object().shape({
+  email,
+  token: Yup.string().required('Campo é obrigatório'),
+  password,
+  password_confirmation,
+});

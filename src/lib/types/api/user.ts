@@ -21,6 +21,17 @@ export type RegisterUser = {
   company_token: number;
 };
 
+export type ForgotPass = {
+  email: string;
+};
+
+export type ResetPass = {
+  email: string;
+  token: string;
+  password: string;
+  password_confirmation: string;
+};
+
 export type UpdateUser = {
   id?: number;
   body: {
