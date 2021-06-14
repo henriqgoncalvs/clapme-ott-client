@@ -67,7 +67,7 @@ export default {
           }
         }
 
-        return Promise.reject(error);
+        return error.response;
       },
     );
 

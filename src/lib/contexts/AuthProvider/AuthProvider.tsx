@@ -33,9 +33,30 @@ function AuthProvider({ children }: { children: ReactNode }) {
       const fetchMe = async () => {
         try {
           const meResponse = await UserAPI.me();
+
+          console.log(meResponse, meResponse.data.message);
+          if (meResponse.status === 403) {
+            if (
+              meResponse.data.message === 'Your email address is not verified.'
+            ) {
+              toast({
+                position: 'top',
+                title: 'Email não verificado.',
+                description:
+                  'Consulte sua caixa de entrada e siga as instruções para verificar seu email.',
+                status: 'error',
+                duration: 5000,
+                isClosable: true,
+              });
+            }
+
+            return logout();
+          }
+
           setUser(meResponse.data);
           setIsAuthenticated(true);
-        } catch {
+          router.push('/');
+        } catch (err) {
           setIsAuthenticated(false);
           toast({
             position: 'top',
@@ -60,7 +81,6 @@ function AuthProvider({ children }: { children: ReactNode }) {
       setCookie(null, ACCESS_TOKEN, response.data?.token);
       setIsAuthenticated(true);
       updateUser();
-      router.push('/');
     } catch (err) {
       toast({
         position: 'top',
