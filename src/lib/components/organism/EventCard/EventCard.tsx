@@ -10,8 +10,14 @@ import parseLongString from '@utils/parseLongString';
 
 import 'dayjs/locale/pt-br';
 
-function EventCard({ title, description, imgUrl, date, id }: EventCardProps) {
-  console.log(imgUrl, id);
+function EventCard({
+  title,
+  description,
+  imgUrl,
+  date,
+  id,
+  artists,
+}: EventCardProps) {
   return (
     <Box
       w="100%"
@@ -48,6 +54,19 @@ function EventCard({ title, description, imgUrl, date, id }: EventCardProps) {
       >
         <Box>
           <Box d="flex" alignItems="baseline">
+            {artists.map((artist) => (
+              <Badge
+                key={artist.id}
+                borderRadius="full"
+                px="2"
+                bg="primary-c.500"
+                color="primary-c"
+              >
+                {artist.name}
+              </Badge>
+            ))}
+          </Box>
+          <Box d="flex" mt="2" alignItems="baseline">
             <Badge
               borderRadius="full"
               px="2"

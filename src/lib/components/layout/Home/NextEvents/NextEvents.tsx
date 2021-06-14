@@ -21,7 +21,8 @@ function NextEvents({ nextEvents }: Props) {
               description={event.description}
               date={event.premiere_date}
               id={event.id}
-              imgUrl={event.og_url}
+              imgUrl={event.banner || event.og_url}
+              artists={event.artists}
             />
           </div>
         ))}

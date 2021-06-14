@@ -1,5 +1,8 @@
+import { ArtistsI } from 'lib/types/api/artists';
+
 export type EventI = {
   id: number;
+  banner: string;
   title: string;
   company_id: number;
   description: string;
@@ -14,4 +17,5 @@ export type EventI = {
   og_title: string;
   og_description: string;
   og_url: string;
+  artists: ArtistsI[];
 };

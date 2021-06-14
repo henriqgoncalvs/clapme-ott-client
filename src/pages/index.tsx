@@ -22,7 +22,7 @@ type Props = {
   events: EventI[];
 };
 
-export default function Home({ nextEvents, events }: Props) {
+export default function Home({ events }: Props) {
   const { isAuthenticated, user } = useAuth();
   const router = useRouter();
 
@@ -37,7 +37,11 @@ export default function Home({ nextEvents, events }: Props) {
   return (
     <>
       <Header />
-      <NextEvents nextEvents={nextEvents} />
+      <NextEvents
+        nextEvents={events.filter((event) =>
+          dayjs().isBefore(dayjs(event.premiere_date)),
+        )}
+      />
       <AllEvents
         events={events.filter((event) =>
           dayjs().isAfter(dayjs(event.premiere_date)),
@@ -51,15 +55,15 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const token = parseCookies(ctx)[ACCESS_TOKEN];
 
   if (token) {
-    const nextEventsresponse = await EventsAPI.nextEvents(token);
+    // const nextEventsresponse = await EventsAPI.nextEvents(token);
     const eventsresponse = await EventsAPI.events(token);
 
-    const nextEventsData: EventI[] = nextEventsresponse.data.data;
+    // const nextEventsData: EventI[] = nextEventsresponse.data.data;
     const eventsData: EventI[] = eventsresponse.data.data;
 
     return {
       props: {
-        nextEvents: nextEventsData,
+        // nextEvents: nextEventsData,
         events: eventsData,
       },
     };

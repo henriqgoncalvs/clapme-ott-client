@@ -25,7 +25,8 @@ function AllEvents({ events }: Props) {
                 description={event.description}
                 date={event.premiere_date}
                 id={event.id}
-                imgUrl={event.og_url}
+                imgUrl={event.banner || event.og_url}
+                artists={event.artists}
               />
             </div>
           ))
@@ -57,7 +58,7 @@ function AllEvents({ events }: Props) {
                 alignItems="flex-start"
               >
                 <FaRegSadTear className="mr-3 mt-1" fontSize={30} />
-                Ainda não existe eventos passados
+                Ainda não existem eventos passados
               </Box>
             </Box>
           </Box>
