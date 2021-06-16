@@ -18,8 +18,3 @@ export type EventCardCartProps = {
   id: number | string;
   date: string;
 };
-
-export type LoginFormProps = {
-  email: string;
-  password: string;
-};

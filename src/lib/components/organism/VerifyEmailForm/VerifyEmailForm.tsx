@@ -10,7 +10,7 @@ import {
 import { Field, FieldProps, Form, Formik } from 'formik';
 
 import { UserAPI } from 'core/api/fetchers';
-import { VerifyEmail } from 'lib/types/api/user';
+import { VerifyEmail } from 'lib/types/api/auth';
 import * as validators from 'lib/validators';
 
 import { useAuth } from '@contexts/AuthProvider/AuthProvider';
