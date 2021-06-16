@@ -34,12 +34,6 @@ function Footer() {
               height="60"
               objectFit="contain"
             />
-            <Image
-              src="/img/clapme-logo.png"
-              width="100"
-              height="60"
-              objectFit="contain"
-            />
           </Box>
           <Stack
             direction={{ base: 'column', md: 'row' }}

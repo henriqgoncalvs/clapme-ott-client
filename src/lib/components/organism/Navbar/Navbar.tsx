@@ -16,6 +16,7 @@ import {
   Stack,
   StackDivider,
   useBreakpointValue,
+  useMediaQuery,
 } from '@chakra-ui/react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -26,6 +27,7 @@ import { useCart } from '@contexts/CartProvider';
 import EventCardCart from '@organism/Cart/EventCardCart';
 
 function Navbar() {
+  const [isMobile] = useMediaQuery('(max-width: 512px)');
   const btnSize = useBreakpointValue({ base: 'sm', md: 'md' });
   const { isAuthenticated, logout } = useAuth();
   const { cart } = useCart();
@@ -48,23 +50,31 @@ function Navbar() {
           {isAuthenticated ? (
             <>
               <Link href="/perfil" passHref>
-                <Button
-                  aria-label="Perfil"
-                  size={btnSize}
-                  leftIcon={<FaUserCircle />}
-                  className="uppercase"
-                >
-                  Meus dados
-                </Button>
+                {isMobile ? (
+                  <IconButton aria-label="Perfil" icon={<FaUserCircle />} />
+                ) : (
+                  <Button
+                    aria-label="Perfil"
+                    size={btnSize}
+                    leftIcon={<FaUserCircle />}
+                    className="uppercase"
+                  >
+                    Meus dados
+                  </Button>
+                )}
               </Link>
-              <Button
-                size={btnSize}
-                className="uppercase"
-                leftIcon={<FiLogOut />}
-                onClick={logout}
-              >
-                Sair
-              </Button>
+              {isMobile ? (
+                <IconButton aria-label="Sair" icon={<FiLogOut />} />
+              ) : (
+                <Button
+                  size={btnSize}
+                  className="uppercase"
+                  leftIcon={<FiLogOut />}
+                  onClick={logout}
+                >
+                  Sair
+                </Button>
+              )}
             </>
           ) : (
             <Link href="/entrar" passHref>

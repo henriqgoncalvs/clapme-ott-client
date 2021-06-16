@@ -2,16 +2,16 @@
   "colors": {
     "colorScheme": "red",
     "primary-c": {
-      "50": "#DC9",
-      "100": "#DC9",
-      "200": "#DC9",
-      "300": "#DC6",
-      "400": "#DC6",
-      "500": "#DC3",
-      "600": "#DC3",
-      "700": "#DC3",
-      "800": "#DC1",
-      "900": "#DC1"
+      "50": "#86cae8",
+      "100": "#4bc3d5",
+      "200": "#4bc3d5",
+      "300": "#1ab2e7",
+      "400": "#1ab2e7",
+      "500": "#337ab7",
+      "600": "#337ab7",
+      "700": "#337ab7",
+      "800": "#00C7FC",
+      "900": "#00C7FC"
     },
     "secondary-c": "#fff",
     "text-c": "#000",
@@ -21,15 +21,23 @@
   },
   "font": {
     "family": {
-      "title-f": "Poppins",
-      "text-f": "Poppins",
-      "button-f": "Poppins"
+      "title-f": "Open Sans",
+      "text-f": "Open Sans",
+      "button-f": "Open Sans"
     }
   },
   "type": {
-    "brand": "Theatro Municipal",
-    "banner": "Shows transmitidos diretamente do Theatro Municipal de São Paulo.",
-    "login": "Espetáculos do Theatro Municipal onde você estiver."
+    "brand": "Clap Me | Partiu Live?",
+    "banner": "PLATAFORMA DE VÍDEO? PRODUÇÃO DE CONTEÚDO? QUE TAL OS DOIS?"
+  },
+  "footer": {
+    "address": "R. Fidalga, 132 - Pinheiros. São Paulo - SP, CEP 05432-000",
+    "company_name": "ClapMe - O Maior Palco do Mundo",
+    "social_links": {
+      "whatsapp": "https://api.whatsapp.com/send?1=pt_BR&phone=5511943263700",
+      "email": "contato@clapme.com",
+      "instagram": "https://www.instagram.com/clapme/"
+    }
   },
   "public_home": false
 }
