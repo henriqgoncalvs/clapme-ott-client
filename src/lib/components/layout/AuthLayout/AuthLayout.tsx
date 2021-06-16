@@ -15,12 +15,20 @@ function AuthLayout({ title, children }: Props) {
       <Center maxW="md" w="100%" mx="auto">
         <Flex direction="column" align="stretch" w="100%">
           <Flex alignSelf="center" direction="column" align="center">
-            <Image
-              src="/img/logo.png"
-              width={200}
-              height={100}
-              objectFit="contain"
-            />
+            <Box
+              px={6}
+              py={4}
+              borderRadius="lg"
+              className="shadow"
+              bg="solid-c"
+            >
+              <Image
+                src="/img/logo.png"
+                width={200}
+                height={100}
+                objectFit="contain"
+              />
+            </Box>
             <Heading as="h1" color="solid-c" my={6}>
               {title}
             </Heading>
