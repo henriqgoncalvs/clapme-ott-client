@@ -10,15 +10,15 @@ import {
 import { Field, FieldProps, Form, Formik } from 'formik';
 
 import { AuthAPI } from 'core/api/fetchers';
-import { ForgotPass } from 'lib/types/api/user';
+import { ResetPass } from 'lib/types/api/auth';
 import * as validators from 'lib/validators';
 
 function RegisterForm() {
   const toast = useToast();
 
-  const handleResetPassword = async (values: ForgotPass) => {
+  const handleResetPassword = async (values: ResetPass) => {
     try {
-      const response = await AuthAPI.forgotPass(values);
+      const response = await AuthAPI.resetPass(values);
 
       if (response.status === 200) {
         toast({

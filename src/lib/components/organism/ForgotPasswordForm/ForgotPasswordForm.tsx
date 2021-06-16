@@ -11,7 +11,7 @@ import { Field, FieldProps, Form, Formik } from 'formik';
 import { useRouter } from 'next/router';
 
 import { AuthAPI } from 'core/api/fetchers';
-import { ForgotPass } from 'lib/types/api/user';
+import { ForgotPass } from 'lib/types/api/auth';
 import * as validators from 'lib/validators';
 
 function RegisterForm() {

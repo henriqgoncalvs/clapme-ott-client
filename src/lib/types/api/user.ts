@@ -11,31 +11,6 @@ export type User = {
   updated_at: string;
 };
 
-export type RegisterUser = {
-  name: string;
-  email: string;
-  password: string;
-  password_confirmation: string;
-  cpf: string;
-  phone: string;
-  company_token: number;
-};
-
-export type ForgotPass = {
-  email: string;
-};
-
-export type ResetPass = {
-  email: string;
-  token: string;
-  password: string;
-  password_confirmation: string;
-};
-
-export type VerifyEmail = {
-  code: string | number;
-};
-
 export type UpdateUser = {
   id?: number;
   body: {
