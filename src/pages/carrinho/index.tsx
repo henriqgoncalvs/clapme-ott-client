@@ -2,8 +2,6 @@ import { useEffect } from 'react';
 import { Container } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 
-import styleguide from '@root/styleguide.json';
-
 import { useAuth } from '@contexts/AuthProvider/AuthProvider';
 
 import CartLayout from '@layout/CartLayout';
@@ -14,7 +12,7 @@ function Cart() {
   const router = useRouter();
 
   useEffect(() => {
-    if (isAuthenticated === false && !styleguide.public_home) {
+    if (isAuthenticated === false) {
       router.push('/');
     }
   }, [isAuthenticated]);

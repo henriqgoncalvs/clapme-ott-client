@@ -1,6 +1,6 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import ReactPlayer from 'react-player/youtube';
-import { Center, Container } from '@chakra-ui/react';
+import { Center, Container, useToast } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { parseCookies } from 'nookies';
@@ -8,8 +8,6 @@ import { parseCookies } from 'nookies';
 import { EventsAPI } from 'core/api/fetchers';
 import { ACCESS_TOKEN } from 'core/config';
 import { EventI } from 'lib/types/api/events';
-
-import styleguide from '@root/styleguide.json';
 
 import { useAuth } from '@contexts/AuthProvider/AuthProvider';
 
@@ -22,16 +20,51 @@ type Props = {
 };
 
 function Watch({ event }: Props) {
-  const { isAuthenticated, user } = useAuth();
+  const { isAuthenticated, user, boughtProducts } = useAuth();
   const router = useRouter();
+  const toast = useToast();
+  const [eventAllowed, setEventAllowed] = useState(false);
+
+  const { id } = router.query;
 
   useEffect(() => {
-    if (isAuthenticated === false && !styleguide.public_home) {
+    if (isAuthenticated === false) {
       router.push('/');
     }
   }, [isAuthenticated]);
 
+  useEffect(() => {
+    if (boughtProducts) {
+      if (
+        boughtProducts?.filter(
+          (bp) =>
+            bp.product.filter(
+              (p) =>
+                p.events.filter((e) => {
+                  return e.id == id;
+                }).length,
+            ).length,
+        ).length === 0
+      ) {
+        toast({
+          position: 'top',
+          title: 'Esse evento ainda não começou ou você não tem permissão.',
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+        });
+        router.push('/');
+      } else {
+        setEventAllowed(true);
+      }
+    }
+  }, [boughtProducts]);
+
   if (!user) return <PageLoading />;
+
+  if (!event.is_active) {
+    return router.push('/');
+  }
 
   return (
     <Container
@@ -53,26 +86,29 @@ function Watch({ event }: Props) {
         opacity: 0.7,
       }}
     >
-      <Center maxW="2xl" mx="auto" h="100%" pos="relative" zIndex="15">
-        <ReactPlayer url="https://www.youtube.com/watch?v=w5v5SyI4THE" />
-      </Center>
-
-      <img
-        src={event.og_url}
-        className="absolute w-screen h-screen top-0 left-0 object-cover z-10 filter blur-sm"
-      />
+      {eventAllowed && (
+        <>
+          <Center maxW="2xl" mx="auto" h="100%" pos="relative" zIndex="15">
+            <ReactPlayer url="https://www.youtube.com/watch?v=w5v5SyI4THE" />
+          </Center>
+          <img
+            src={event.og_url}
+            className="absolute w-screen h-screen top-0 left-0 object-cover z-10 filter blur-sm"
+          />
+        </>
+      )}
     </Container>
   );
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const token = parseCookies(ctx)[ACCESS_TOKEN];
-  const id: string | string[] | undefined = ctx.params?.id;
+  const id: number | string | string[] | undefined = ctx.params?.id;
 
   if (token) {
     const eventResponse = await EventsAPI.watch(id, token);
 
-    const eventData: EventI = eventResponse.data.data;
+    const eventData: EventI = eventResponse.data?.data || [];
 
     return {
       props: {

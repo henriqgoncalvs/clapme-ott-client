@@ -100,7 +100,7 @@ function EventCard({
         </Box>
 
         <Box d="flex" mt="4" alignSelf="center">
-          {boughtProducts.filter(
+          {boughtProducts?.filter(
             (bp) =>
               bp.product.filter(
                 (p) => p.events.filter((e) => e.id === id).length,
@@ -108,7 +108,7 @@ function EventCard({
           ).length ? (
             <Link href={`/evento/${id}`} passHref>
               <Button className="uppercase" size="md">
-                Assistir
+                Ver detalhes
               </Button>
             </Link>
           ) : (

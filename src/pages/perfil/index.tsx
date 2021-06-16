@@ -2,8 +2,6 @@ import { useEffect } from 'react';
 import { Container } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 
-import styleguide from '@root/styleguide.json';
-
 import { useAuth } from '@contexts/AuthProvider/AuthProvider';
 
 import PageLoading from '@layout/PageLoading';
@@ -14,7 +12,7 @@ function Perfil() {
   const router = useRouter();
 
   useEffect(() => {
-    if (isAuthenticated === false && !styleguide.public_home) {
+    if (isAuthenticated === false) {
       router.push('/');
     }
   }, [isAuthenticated]);

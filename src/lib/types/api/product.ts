@@ -1,7 +1,7 @@
 import { EventI } from './events';
 
 export type ProductI = {
-  id: string;
+  id: number | string;
   title: string;
   description: string;
   price: number;
@@ -13,11 +13,11 @@ export type ProductI = {
 };
 
 export type BoughtProducts = {
-  id: string;
+  id: number | string;
   user_id: number;
   payment_id: number;
   total_price: number;
-  coupon_id: string;
+  coupon_id: number | string;
   discount: number;
   final_price: number;
   payment_type: string;

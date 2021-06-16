@@ -8,8 +8,6 @@ import { EventsAPI } from 'core/api/fetchers';
 import { ACCESS_TOKEN } from 'core/config';
 import { EventI } from 'lib/types/api/events';
 
-import styleguide from '@root/styleguide.json';
-
 import { useAuth } from '@contexts/AuthProvider/AuthProvider';
 
 import PageLoading from '@layout/PageLoading';
@@ -25,7 +23,7 @@ function Event({ event }: Props) {
   const router = useRouter();
 
   useEffect(() => {
-    if (isAuthenticated === false && !styleguide.public_home) {
+    if (isAuthenticated === false) {
       router.push('/');
     }
   }, [isAuthenticated]);
@@ -40,6 +38,7 @@ function Event({ event }: Props) {
       h="100vh"
       maxW="100vw"
       pos="relative"
+      overflowX="hidden"
       _before={{
         content: "''",
         bg: 'solid-c',
@@ -105,7 +104,7 @@ function Event({ event }: Props) {
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const token = parseCookies(ctx)[ACCESS_TOKEN];
-  const id: string | string[] | undefined = ctx.params?.id;
+  const id: number | string | string[] | undefined = ctx.params?.id;
 
   if (token) {
     const eventResponse = await EventsAPI.showEvent(id, token);

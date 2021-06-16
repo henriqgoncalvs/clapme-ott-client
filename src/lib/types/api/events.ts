@@ -1,7 +1,7 @@
 import { ArtistsI } from 'lib/types/api/artists';
 
 export type EventI = {
-  id: string;
+  id: number | string;
   banner: string;
   title: string;
   company_id: number;

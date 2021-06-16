@@ -5,17 +5,17 @@ export type EventCardProps = {
   title: string;
   description: string;
   date: string;
-  id: string;
+  id: number | string;
   artists: ArtistsI[];
-  productId: string;
+  productId: number | string;
 };
 
 export type EventCardCartProps = {
-  productId: string;
+  productId: number | string;
   imgUrl: string;
   title: string;
   description: string;
-  id: string;
+  id: number | string;
   date: string;
 };
 

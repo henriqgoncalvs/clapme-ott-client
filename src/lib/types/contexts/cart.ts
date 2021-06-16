@@ -4,7 +4,7 @@ export type CartItemI = EventCardCartProps;
 
 export type CartProviderI = {
   addToCart: (item: CartItemI) => void;
-  removeFromCart: (id: string) => void;
+  removeFromCart: (id: number | string) => void;
   finishCart: () => void;
   cart: CartItemI[];
 };

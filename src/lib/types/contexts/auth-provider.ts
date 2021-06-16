@@ -6,7 +6,7 @@ import { BoughtProducts } from '../api/product';
 export type AuthProviderI = {
   isAuthenticated: boolean | null;
   user: User | null;
-  boughtProducts: BoughtProducts[];
+  boughtProducts: BoughtProducts[] | null;
   login?: (values: Login) => Promise<Error | void>;
   logout?: () => void;
 };

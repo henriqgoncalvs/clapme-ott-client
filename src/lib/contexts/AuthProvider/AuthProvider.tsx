@@ -22,7 +22,9 @@ function AuthProvider({ children }: { children: ReactNode }) {
   const toast = useToast();
 
   const [user, setUser] = useState<User | null>(null);
-  const [boughtProducts, setBoughtProducts] = useState<BoughtProducts[]>([]);
+  const [boughtProducts, setBoughtProducts] = useState<BoughtProducts[] | null>(
+    null,
+  );
 
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
 
