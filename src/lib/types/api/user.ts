@@ -32,6 +32,10 @@ export type ResetPass = {
   password_confirmation: string;
 };
 
+export type VerifyEmail = {
+  code: string | number;
+};
+
 export type UpdateUser = {
   id?: number;
   body: {

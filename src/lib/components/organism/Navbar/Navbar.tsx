@@ -70,7 +70,11 @@ function Navbar() {
                   size={btnSize}
                   className="uppercase"
                   leftIcon={<FiLogOut />}
-                  onClick={logout}
+                  onClick={() => {
+                    if (logout) {
+                      logout();
+                    }
+                  }}
                 >
                   Sair
                 </Button>

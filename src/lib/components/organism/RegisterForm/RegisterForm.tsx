@@ -14,7 +14,10 @@ import { AuthAPI } from 'core/api/fetchers';
 import { RegisterUser } from 'lib/types/api/user';
 import * as validators from 'lib/validators';
 
+import { useAuth } from '@contexts/AuthProvider/AuthProvider';
+
 function RegisterForm() {
+  const { login } = useAuth();
   const toast = useToast();
 
   const handleRegister = async (values: RegisterUser) => {
@@ -30,6 +33,13 @@ function RegisterForm() {
           duration: 5000,
           isClosable: true,
         });
+
+        if (login) {
+          return login({
+            email: values.email,
+            password: values.password,
+          });
+        }
       }
     } catch (err) {
       toast({

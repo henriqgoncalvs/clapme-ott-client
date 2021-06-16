@@ -34,45 +34,6 @@ function AuthProvider({ children }: { children: ReactNode }) {
     const token = parseCookies()[ACCESS_TOKEN];
 
     if (token) {
-      const fetchMe = async () => {
-        try {
-          const meResponse = await UserAPI.me();
-
-          if (meResponse.status === 403) {
-            if (
-              meResponse.data.message === 'Your email address is not verified.'
-            ) {
-              toast({
-                position: 'top',
-                title: 'Email não verificado.',
-                description:
-                  'Consulte sua caixa de entrada e siga as instruções para verificar seu email.',
-                status: 'error',
-                duration: 5000,
-                isClosable: true,
-              });
-            }
-
-            return logout();
-          }
-
-          setUser(meResponse.data);
-          setIsAuthenticated(true);
-          router.push('/');
-        } catch (err) {
-          setIsAuthenticated(false);
-          toast({
-            position: 'top',
-            title: 'Erro no carregamento das informações do usuário.',
-            description:
-              'Estamos passando por uma manutenção, tente novamente mais tarde.',
-            status: 'error',
-            duration: 5000,
-            isClosable: true,
-          });
-        }
-      };
-
       const fetchBoughtProducts = async () => {
         const boughtProductsResponse = await ProductsAPI.boughtProducts();
 
@@ -92,8 +53,47 @@ function AuthProvider({ children }: { children: ReactNode }) {
         }
       };
 
+      const fetchMe = async () => {
+        try {
+          const meResponse = await UserAPI.me();
+          if (meResponse.status === 403) {
+            if (
+              meResponse.data.message === 'Your email address is not verified.'
+            ) {
+              toast({
+                position: 'top',
+                title: 'Email não verificado.',
+                description:
+                  'Consulte sua caixa de entrada e siga as instruções para verificar seu email.',
+                status: 'error',
+                duration: 5000,
+                isClosable: true,
+              });
+              return router.push('/verificar-email');
+            }
+
+            return logout();
+          }
+
+          setUser(meResponse.data);
+          setIsAuthenticated(true);
+          fetchBoughtProducts();
+          router.push('/');
+        } catch (err) {
+          setIsAuthenticated(false);
+          toast({
+            position: 'top',
+            title: 'Erro no carregamento das informações do usuário.',
+            description:
+              'Estamos passando por uma manutenção, tente novamente mais tarde.',
+            status: 'error',
+            duration: 5000,
+            isClosable: true,
+          });
+        }
+      };
+
       fetchMe();
-      fetchBoughtProducts();
     } else {
       setIsAuthenticated(false);
     }
@@ -118,14 +118,17 @@ function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const logout = () => {
+  const logout = (
+    type?: 'info' | 'warning' | 'success' | 'error',
+    title?: string,
+  ) => {
     destroyCookie(null, ACCESS_TOKEN);
     setIsAuthenticated(false);
     setUser(null);
     toast({
       position: 'top',
-      title: 'Deslogado com sucesso.',
-      status: 'success',
+      title: title || 'Deslogado com sucesso.',
+      status: type || 'success',
       duration: 5000,
       isClosable: true,
     });

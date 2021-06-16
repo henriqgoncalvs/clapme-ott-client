@@ -8,5 +8,8 @@ export type AuthProviderI = {
   user: User | null;
   boughtProducts: BoughtProducts[] | null;
   login?: (values: Login) => Promise<Error | void>;
-  logout?: () => void;
+  logout?: (
+    type?: 'info' | 'warning' | 'success' | 'error',
+    title?: string,
+  ) => void;
 };

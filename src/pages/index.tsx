@@ -59,7 +59,13 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     const productsResponse = await ProductsAPI.get(token);
 
     // const nextEventsData: EventI[] = nextEventsresponse.data.data;
-    const productsData: ProductI[] = productsResponse.data.data;
+    const productsData: ProductI[] = productsResponse.data?.data;
+
+    if (!productsData) {
+      return {
+        props: {},
+      };
+    }
 
     return {
       props: {
