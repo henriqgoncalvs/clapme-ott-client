@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import ReactPlayer from 'react-player/youtube';
 import { Center, Container, useToast } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
@@ -89,7 +88,13 @@ function Watch({ event }: Props) {
       {eventAllowed && (
         <>
           <Center maxW="2xl" mx="auto" h="100%" pos="relative" zIndex="15">
-            <ReactPlayer url="https://www.youtube.com/watch?v=w5v5SyI4THE" />
+            <iframe
+              width="100%"
+              height="100%"
+              frameBorder="0"
+              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+              src={event.url_player}
+            ></iframe>
           </Center>
           <img
             src={event.og_url}
