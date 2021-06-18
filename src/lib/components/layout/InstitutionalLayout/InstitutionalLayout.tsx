@@ -34,7 +34,9 @@ function InstitutionalLayout({ title, children }: Props) {
             </Heading>
           </Flex>
 
-          <Box>{children}</Box>
+          <Box as="p" textAlign="center">
+            {children}
+          </Box>
         </Flex>
       </Center>
     </Container>
