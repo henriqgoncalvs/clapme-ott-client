@@ -33,11 +33,12 @@
 _Use o checkbox para marcar as variáveis adicionadas, ajuda a se guiar na construção do arquivo._
 ### Cores (_colors_)
 
-[ ] primary-c - Backgrounds dos botões, filtro nas fotos, links ativos. <br />
-[ ] text-c - Textos que não utilizam a cor primária.<br />
-[ ] solid-c - Background sólido no banner, background da navbar, background do footer.<br />
-[ ] solid-text-c - Textos que vão aparecer por cima de um bloco que tem `solid` como background.<br />
-[ ] body-c - Background do body.<br />
+[ ] primary-c: _{ <T>: <V> }_ - Backgrounds dos botões, filtro nas fotos, links ativos. <br />
+[ ] secondary-c: _string_ <br />
+[ ] text-c: _string_ - Textos que não utilizam a cor primária.<br />
+[ ] solid-c: _string_ - Background sólido no banner, background da navbar, background do footer.<br />
+[ ] solid-text-c: _string_ - Textos que vão aparecer por cima de um bloco que tem `solid` como background.<br />
+[ ] body-c: _string_ - Background do body.<br />
 
 ### Fontes (_fonts_)
 
@@ -45,14 +46,14 @@ _Lembre-se de importar a fonte no arquivo_ `src/app/styles/global.styles.css`
 _Para fontes locais, adicione em_ `public/font` _e importe como font-face no arquivo_ `src/app/styles/global.styles.css`.
 
 **family** <br />
-  [ ] title-f - Fonte para os títulos<br />
-  [ ] text-f - Fonte para texto que não são títulos<br />
-  [ ] button-f - Fonte para botões<br />
+  [ ] title-f: _string_ - Fonte para os títulos<br />
+  [ ] text-f: _string_ - Fonte para texto que não são títulos<br />
+  [ ] button-f: _string_ - Fonte para botões<br />
 
 ### Títulos (_type_)
 
-[ ] banner - Texto do banner da Home.<br />
-[ ] login - Texto do banner em Login.<br />
+[ ] brand: _string_ - Nome da empresa.<br />
+[ ] banner: _string_ - Texto do banner da Home.<br />
 
 ---
 ## Imagens
@@ -61,10 +62,30 @@ _Adicione as imagens na pasta_ `public/font`
 
 _Coloque as imagens com o nome indicado abaixo:_
 
-[ ] logo - Arquivo usado para a logo na navbar, footer, login, etc.<br />
-[ ] banner - Arquivo usado para a foto do banner na Home.<br />
-[ ] login - Arquivo usado para a tela de login.<br />
+[ ] logo: _string_ - Arquivo usado para a logo na navbar, footer, login, etc.<br />
+[ ] banner: _string_ - Arquivo usado para a foto do banner na Home.<br />
+[ ] login: _string_ - Arquivo usado para a tela de login.<br />
 
 ### Favicon
 
 _Adicione o arquivo_ `favicon.ico` _na pasta_ `public/`
+
+
+### Footer
+
+[ ] address: _string_ - Endereço <br />
+[ ] company_name: _string_ - Nome da empresa usado nos direitos do footer <br />
+[ ] social_links: { <br />
+      [ ] whatsapp: _string_ - Link para Whatsapp <br />
+      [ ] email: _string_ - Link para Email <br />
+      [ ] instagram: _string_ - Link para Instagram <br />
+    }
+
+### Home Pública
+
+[ ] public_home -
+
+
+### Variáveis de ambiente
+
+_Verifique o arquivo .env.example_
