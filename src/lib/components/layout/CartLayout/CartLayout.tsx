@@ -15,14 +15,14 @@ function CartLayout() {
     <Flex w="100%" mx="auto" direction="column">
       <h1 className="mb-12">Carrinho</h1>
 
-      {cart.length > 0 ? (
+      {cart?.length && cart?.length > 0 ? (
         <Stack
           divider={<StackDivider />}
           direction={{ base: 'column', lg: 'row' }}
           spacing={{ base: '10', lg: '12' }}
         >
           <Box flex="1">
-            {cart.map((cartItem) => (
+            {cart?.map((cartItem) => (
               <CartItem
                 key={cartItem.id}
                 id={cartItem.id}
