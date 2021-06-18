@@ -108,8 +108,8 @@ function Navbar() {
                     spacing={{ base: '10', lg: '4' }}
                     mb={4}
                   >
-                    {cart.length > 0 ? (
-                      cart.map((cartItem) => (
+                    {cart?.length && cart?.length > 0 ? (
+                      cart?.map((cartItem) => (
                         <ProductCardCart
                           key={cartItem.id}
                           title={cartItem.title}
