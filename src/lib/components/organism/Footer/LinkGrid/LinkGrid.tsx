@@ -18,7 +18,7 @@ function LinkGrid(props: SimpleGridProps) {
           <Link href="/quem-somos" passHref>
             <ChakraLink>Quem somos</ChakraLink>
           </Link>
-          <Link href="/quem-somos" passHref>
+          <Link href="/termos-de-uso" passHref>
             <ChakraLink>Termos de uso</ChakraLink>
           </Link>
           <Link href="/politica-de-privacidade" passHref>

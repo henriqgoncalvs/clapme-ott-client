@@ -32,7 +32,7 @@ function CartProvider({ children }: { children: ReactNode }) {
   }, [cart]);
 
   const addToCart = (item: CartItemI) => {
-    const newCart = [...cart!, item];
+    const newCart = [...new Set(cart), item];
 
     toast({
       position: 'top',
