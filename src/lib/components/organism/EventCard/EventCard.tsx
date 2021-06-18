@@ -1,8 +1,10 @@
 import { Button } from '@chakra-ui/button';
 import { Badge, Box } from '@chakra-ui/layout';
+import { useDisclosure } from '@chakra-ui/react';
 import dayjs from 'dayjs';
 import Image from 'next/image';
 import Link from 'next/link';
+import router from 'next/router';
 
 import { EventCardProps } from 'lib/types/components';
 
@@ -10,6 +12,8 @@ import parseLongString from '@utils/parseLongString';
 
 import { useAuth } from '@contexts/AuthProvider/AuthProvider';
 import { useCart } from '@contexts/CartProvider';
+
+import ProductModal from '@organism/ProductModal';
 
 import 'dayjs/locale/pt-br';
 
@@ -20,10 +24,11 @@ function EventCard({
   date,
   id,
   artists,
-  productId,
+  products,
 }: EventCardProps) {
   const { addToCart } = useCart();
   const { boughtProducts } = useAuth();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <Box
@@ -111,25 +116,35 @@ function EventCard({
                 Ver detalhes
               </Button>
             </Link>
+          ) : products.length > 1 ? (
+            <Button className="uppercase" size="md" onClick={onOpen}>
+              Ver pacotes
+            </Button>
           ) : (
             <Button
               className="uppercase"
               size="md"
-              onClick={() =>
+              onClick={() => {
+                if (!products.length) {
+                  return router.push(`/evento/${id}`);
+                }
+
                 addToCart({
-                  date,
-                  id,
-                  title,
-                  description,
-                  imgUrl,
-                  productId,
-                })
-              }
+                  id: products[0].id,
+                  title: products[0].title,
+                  description: products[0].description,
+                  price: products[0].price,
+                });
+              }}
             >
-              Adicionar ao carrinho
+              {!products.length
+                ? 'Assistir evento gratuito'
+                : 'Adicionar ao carrinho'}
             </Button>
           )}
         </Box>
+
+        <ProductModal isOpen={isOpen} onClose={onClose} products={products} />
       </Box>
     </Box>
   );

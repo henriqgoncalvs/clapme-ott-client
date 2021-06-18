@@ -1,17 +1,18 @@
 import { Badge, Box, Stack } from '@chakra-ui/layout';
-import dayjs from 'dayjs';
+import { Text } from '@chakra-ui/react';
 
-import { EventCardCartProps } from 'lib/types/components';
+import { ProductCardCartProps } from 'lib/types/components';
 
 import parseLongString from '@utils/parseLongString';
 
 import 'dayjs/locale/pt-br';
 
-function EventCardCart({
+function ProductCardCart({
   title = 'O Terno',
   description = 'Theatro Municipal de São Paulo- São Paulo',
-  date = '12 MAI - 22H',
-}: Omit<EventCardCartProps, 'id'>) {
+  price,
+  onClick,
+}: Omit<ProductCardCartProps, 'id'> & { onClick?: () => void }) {
   return (
     <Stack
       w="100%"
@@ -20,15 +21,18 @@ function EventCardCart({
       overflow="hidden"
       className="shadow"
       direction="column"
+      onClick={onClick}
+      cursor="pointer"
     >
       <Box
-        py="8"
-        px="6"
-        mx="10"
+        py="4"
+        px="1"
         d="flex"
-        flexDirection="row"
+        flexDirection="column"
         height="100%"
-        justifyContent="space-between"
+        alignItems="flex-start"
+        w="80%"
+        mx="auto"
       >
         <Box>
           <Box d="flex" alignItems="baseline">
@@ -38,20 +42,21 @@ function EventCardCart({
               bg="primary-c.500"
               color="secondary-c"
             >
-              {dayjs(date).locale('pt-br').format('DD MMM - HH:mm')}
+              R$ {price}
             </Badge>
           </Box>
-          <Box
+          <Text
             mt="2"
             fontWeight="semibold"
             wordBreak="break-word"
-            as="h4"
-            fontSize="2xl"
+            fontSize="xl"
             lineHeight="tight"
             isTruncated
+            whiteSpace="normal"
+            w="100%"
           >
             {title}
-          </Box>
+          </Text>
 
           <Box as="p" mt="1">
             {parseLongString(description)}
@@ -62,4 +67,4 @@ function EventCardCart({
   );
 }
 
-export default EventCardCart;
+export default ProductCardCart;

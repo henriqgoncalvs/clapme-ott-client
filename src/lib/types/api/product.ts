@@ -4,7 +4,7 @@ export type ProductI = {
   id: number | string;
   title: string;
   description: string;
-  price: number;
+  price: string;
   is_highlight: boolean;
   og_title: string;
   og_description: string;

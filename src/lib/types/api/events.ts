@@ -1,4 +1,5 @@
 import { ArtistsI } from 'lib/types/api/artists';
+import { ProductI } from 'lib/types/api/product';
 
 export type EventI = {
   id: number | string;
@@ -18,4 +19,5 @@ export type EventI = {
   og_description: string;
   og_url: string;
   artists: ArtistsI[];
+  products: ProductI[];
 };

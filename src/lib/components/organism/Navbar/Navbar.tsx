@@ -24,7 +24,7 @@ import Link from 'next/link';
 import { useAuth } from '@contexts/AuthProvider/AuthProvider';
 import { useCart } from '@contexts/CartProvider';
 
-import EventCardCart from '@organism/Cart/EventCardCart';
+import ProductCardCart from '@organism/Cart/ProductCardCart';
 
 function Navbar() {
   const [isMobile] = useMediaQuery('(max-width: 512px)');
@@ -110,13 +110,11 @@ function Navbar() {
                   >
                     {cart.length > 0 ? (
                       cart.map((cartItem) => (
-                        <EventCardCart
-                          productId={cartItem.productId}
+                        <ProductCardCart
                           key={cartItem.id}
                           title={cartItem.title}
                           description={cartItem.description}
-                          date={cartItem.date}
-                          imgUrl={cartItem.imgUrl}
+                          price={cartItem.price}
                         />
                       ))
                     ) : (

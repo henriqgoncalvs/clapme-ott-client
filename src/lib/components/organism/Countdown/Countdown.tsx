@@ -5,9 +5,10 @@ import Link from 'next/link';
 
 type Props = {
   endDate: string;
+  id: string | number;
 };
 
-function Countdown({ endDate }: Props) {
+function Countdown({ endDate, id }: Props) {
   return (
     <RCountdown
       date={endDate}
@@ -18,7 +19,7 @@ function Countdown({ endDate }: Props) {
               <Text mb={8} textAlign="center">
                 Estamos ao vivo
               </Text>
-              <Link href="/assistir" passHref>
+              <Link href={`/assistir/${id}`} passHref>
                 <Button textTransform="uppercase" size="lg">
                   Assistir
                 </Button>

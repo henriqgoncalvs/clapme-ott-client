@@ -5,16 +5,9 @@ import { CartItemI } from 'lib/types/contexts/cart';
 
 import { useCart } from '@contexts/CartProvider';
 
-import EventCardCart from '../EventCardCart';
+import ProductCardCart from '../ProductCardCart';
 
-function CartItem({
-  id,
-  title,
-  description,
-  date,
-  imgUrl,
-  productId,
-}: CartItemI) {
+function CartItem({ id, title, description, price }: CartItemI) {
   const { removeFromCart } = useCart();
 
   return (
@@ -24,12 +17,10 @@ function CartItem({
       mb={16}
     >
       <Box flex="1" mr={{ base: 0, md: 6 }} mb={{ base: 6, md: 0 }}>
-        <EventCardCart
-          productId={productId}
+        <ProductCardCart
           title={title}
           description={description}
-          date={date}
-          imgUrl={imgUrl}
+          price={price}
         />
       </Box>
 

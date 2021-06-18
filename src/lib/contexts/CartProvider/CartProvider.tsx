@@ -29,8 +29,9 @@ function CartProvider({ children }: { children: ReactNode }) {
   };
 
   const finishCart = async () => {
+    console.log(cart);
     const productsPromises = cart.map((cartItem) =>
-      ProductsAPI.purchase(cartItem.productId),
+      ProductsAPI.purchase(cartItem.id),
     );
 
     const response = await Promise.all(productsPromises);
@@ -49,6 +50,13 @@ function CartProvider({ children }: { children: ReactNode }) {
           }),
         );
     } else {
+      toast({
+        position: 'top',
+        title: 'Sucesso na compra',
+        status: 'success',
+        duration: 5000,
+        isClosable: true,
+      });
       router.push('/');
     }
   };

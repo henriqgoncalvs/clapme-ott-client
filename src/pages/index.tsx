@@ -4,9 +4,9 @@ import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { parseCookies } from 'nookies';
 
-import { ProductsAPI } from 'core/api/fetchers';
+import { EventsAPI } from 'core/api/fetchers';
 import { ACCESS_TOKEN } from 'core/config';
-import { ProductI } from 'lib/types/api/product';
+import { EventI } from 'lib/types/api/events';
 
 import styleguide from '@root/styleguide.json';
 
@@ -18,10 +18,11 @@ import NextEvents from '@layout/Home/NextEvents';
 import PageLoading from '@layout/PageLoading';
 
 type Props = {
-  products: ProductI[];
+  events: EventI[];
+  nextEvents: EventI[];
 };
 
-export default function Home({ products }: Props) {
+export default function Home({ events, nextEvents }: Props) {
   const { isAuthenticated, user } = useAuth();
   const router = useRouter();
 
@@ -37,13 +38,16 @@ export default function Home({ products }: Props) {
     <>
       <Header />
       <NextEvents
-        nextProducts={products.filter((product) =>
-          dayjs().isBefore(dayjs(product.events[0].premiere_date)),
+        nextEvents={nextEvents.filter((event) =>
+          dayjs().isBefore(dayjs(event.premiere_date)),
         )}
       />
       <AllEvents
-        products={products.filter((product) =>
-          dayjs().isAfter(dayjs(product.events[0].premiere_date)),
+        eventsToday={events.filter((event) =>
+          dayjs().isSame(dayjs(event.premiere_date), 'day'),
+        )}
+        events={events.filter((event) =>
+          dayjs().subtract(1, 'day').isAfter(dayjs(event.premiere_date)),
         )}
       />
     </>
@@ -54,23 +58,16 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const token = parseCookies(ctx)[ACCESS_TOKEN];
 
   if (token) {
-    // const nextEventsresponse = await EventsAPI.nextEvents(token);
-    // const eventsresponse = await EventsAPI.events(token);
-    const productsResponse = await ProductsAPI.get(token);
+    const nextEventsResponse = await EventsAPI.nextEvents(token);
+    const eventsResponse = await EventsAPI.events(token);
 
-    // const nextEventsData: EventI[] = nextEventsresponse.data.data;
-    const productsData: ProductI[] = productsResponse.data?.data;
-
-    if (!productsData) {
-      return {
-        props: {},
-      };
-    }
+    const nextEventsData: EventI[] = nextEventsResponse.data?.data;
+    const eventsData: EventI[] = eventsResponse.data?.data;
 
     return {
       props: {
-        // nextEvents: nextEventsData,
-        products: productsData,
+        nextEvents: nextEventsData,
+        events: eventsData,
       },
     };
   }

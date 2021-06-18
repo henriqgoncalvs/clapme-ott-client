@@ -7,6 +7,7 @@ import { parseCookies } from 'nookies';
 import { EventsAPI } from 'core/api/fetchers';
 import { ACCESS_TOKEN } from 'core/config';
 import { EventI } from 'lib/types/api/events';
+import { ProductI } from 'lib/types/api/product';
 
 import { useAuth } from '@contexts/AuthProvider/AuthProvider';
 
@@ -15,6 +16,8 @@ import PageLoading from '@layout/PageLoading';
 type Props = {
   event: EventI & {
     url_player: string;
+    banner: string;
+    products: ProductI[];
   };
 };
 
@@ -23,6 +26,8 @@ function Watch({ event }: Props) {
   const router = useRouter();
   const toast = useToast();
   const [eventAllowed, setEventAllowed] = useState(false);
+
+  console.log(event);
 
   const { id } = router.query;
 
@@ -43,8 +48,12 @@ function Watch({ event }: Props) {
                   return e.id == id;
                 }).length,
             ).length,
-        ).length === 0
+        ).length !== 0
       ) {
+        setEventAllowed(true);
+      } else if (!event.products?.length) {
+        setEventAllowed(true);
+      } else {
         toast({
           position: 'top',
           title: 'Esse evento ainda não começou ou você não tem permissão.',
@@ -53,8 +62,6 @@ function Watch({ event }: Props) {
           isClosable: true,
         });
         router.push('/');
-      } else {
-        setEventAllowed(true);
       }
     }
   }, [boughtProducts]);
@@ -73,6 +80,7 @@ function Watch({ event }: Props) {
       h="100vh"
       maxW="100vw"
       pos="relative"
+      overflowX="hidden"
       _before={{
         content: "''",
         bg: 'solid-c',
@@ -97,7 +105,7 @@ function Watch({ event }: Props) {
             ></iframe>
           </Center>
           <img
-            src={event.og_url}
+            src={event.banner}
             className="absolute w-screen h-screen top-0 left-0 object-cover z-10 filter blur-sm"
           />
         </>
@@ -111,14 +119,48 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const id: number | string | string[] | undefined = ctx.params?.id;
 
   if (token) {
-    const eventResponse = await EventsAPI.watch(id, token);
+    const watchEventResponse = await EventsAPI.watch(id, token);
+
+    if (watchEventResponse.status === 403) {
+      return {
+        redirect: {
+          permanent: false,
+          destination: '/',
+        },
+      };
+    }
+
+    const watchEventData: EventI = watchEventResponse.data?.data || [];
+
+    const eventResponse = await EventsAPI.showEvent(id, token);
+
+    if (eventResponse.status === 403) {
+      return {
+        redirect: {
+          permanent: false,
+          destination: '/',
+        },
+      };
+    }
 
     const eventData: EventI = eventResponse.data?.data || [];
 
+    const event = {
+      ...watchEventData,
+      banner: eventData.banner,
+      products: eventData.products,
+    };
+
+    if (eventData.products) {
+      return {
+        props: {
+          event: event,
+        },
+      };
+    }
+
     return {
-      props: {
-        event: eventData,
-      },
+      props: {},
     };
   }
 

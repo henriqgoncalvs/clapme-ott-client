@@ -24,13 +24,11 @@ function CartLayout() {
           <Box flex="1">
             {cart.map((cartItem) => (
               <CartItem
-                productId={cartItem.productId}
                 key={cartItem.id}
                 id={cartItem.id}
                 title={cartItem.title}
                 description={cartItem.description}
-                imgUrl={cartItem.imgUrl}
-                date={cartItem.date}
+                price={cartItem.price}
               />
             ))}
 

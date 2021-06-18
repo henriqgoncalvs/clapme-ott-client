@@ -61,7 +61,7 @@ function Event({ event }: Props) {
             flex="1"
             p={8}
             h="100%"
-            bgImg={event.og_url}
+            bgImg={event.banner}
             bgPos="center"
             bgSize="cover"
           />
@@ -70,7 +70,9 @@ function Event({ event }: Props) {
             flex="1"
             h="100%"
             d="flex"
+            flexDirection="column"
             alignItems="center"
+            justifyContent="center"
             borderTopRightRadius={{ base: '0', md: '3xl' }}
             borderBottomLeftRadius={{ base: '3xl', md: '0' }}
             borderBottomRightRadius="3xl"
@@ -88,14 +90,14 @@ function Event({ event }: Props) {
                 <Text textAlign="center">{event.description}</Text>
               </Flex>
 
-              <Countdown endDate={event.premiere_date} />
+              <Countdown endDate={event.premiere_date} id={event.id} />
             </Stack>
           </Box>
         </Flex>
       </Center>
 
       <img
-        src={event.og_url}
+        src={event.banner}
         className="absolute w-screen h-screen top-0 left-0 object-cover z-10 filter blur-sm"
       />
     </Container>

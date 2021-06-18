@@ -1,4 +1,5 @@
 import { ArtistsI } from 'lib/types/api/artists';
+import { ProductI } from 'lib/types/api/product';
 
 export type EventCardProps = {
   imgUrl: string;
@@ -7,14 +8,12 @@ export type EventCardProps = {
   date: string;
   id: number | string;
   artists: ArtistsI[];
-  productId: number | string;
+  products: ProductI[];
 };
 
-export type EventCardCartProps = {
-  productId: number | string;
-  imgUrl: string;
+export type ProductCardCartProps = {
   title: string;
   description: string;
   id: number | string;
-  date: string;
+  price: string;
 };

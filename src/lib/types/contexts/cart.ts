@@ -1,6 +1,6 @@
-import { EventCardCartProps } from 'lib/types/components';
+import { ProductCardCartProps } from 'lib/types/components';
 
-export type CartItemI = EventCardCartProps;
+export type CartItemI = ProductCardCartProps;
 
 export type CartProviderI = {
   addToCart: (item: CartItemI) => void;

@@ -1,33 +1,58 @@
 import { FaRegSadTear } from 'react-icons/fa';
 import { Box } from '@chakra-ui/layout';
 
-import { ProductI } from 'lib/types/api/product';
+import { EventI } from 'lib/types/api/events';
 
 import EventCard from '@organism/EventCard';
 
 type Props = {
-  products: ProductI[];
+  events: EventI[];
+  eventsToday: EventI[];
 };
 
-function AllEvents({ products }: Props) {
+function AllEvents({ events, eventsToday }: Props) {
   return (
     <section className="p-8 flex flex-col items-start max-w-screen-xl mx-auto">
+      {eventsToday.length > 0 && (
+        <>
+          <h2 className="mb-12">Acontecendo agora</h2>
+          <section className="grid grid-cols-1 gap-16 md:grid-cols-2 lg:grid-cols-3 w-full items-stretch mb-12">
+            {eventsToday.map((event) => (
+              <div
+                key={event.id}
+                className="w-full flex items-center justify-center"
+              >
+                <EventCard
+                  products={event.products}
+                  title={event.title}
+                  description={event.description}
+                  date={event.premiere_date}
+                  id={event.id}
+                  imgUrl={event.banner || event.og_url}
+                  artists={event.artists}
+                />
+              </div>
+            ))}
+          </section>
+        </>
+      )}
+
       <h2 className="mb-12">Eventos passados</h2>
       <section className="grid grid-cols-1 gap-16 md:grid-cols-2 lg:grid-cols-3 w-full items-stretch">
-        {products.length ? (
-          products?.map((product) => (
+        {events.length ? (
+          events?.map((event) => (
             <div
-              key={product.events[0].id}
+              key={event.id}
               className="w-full flex items-center justify-center"
             >
               <EventCard
-                productId={product.id}
-                title={product.events[0].title}
-                description={product.events[0].description}
-                date={product.events[0].premiere_date}
-                id={product.events[0].id}
-                imgUrl={product.events[0].banner || product.events[0].og_url}
-                artists={product.events[0].artists}
+                products={event.products}
+                title={event.title}
+                description={event.description}
+                date={event.premiere_date}
+                id={event.id}
+                imgUrl={event.banner || event.og_url}
+                artists={event.artists}
               />
             </div>
           ))
