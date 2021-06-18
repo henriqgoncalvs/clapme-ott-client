@@ -15,14 +15,6 @@ export type User = {
   boughtProducts: BoughtProducts[];
 };
 
-export type UpdateUser = {
-  name?: string;
-  email?: string;
-  cpf?: string;
-  phone?: string;
-  company_id?: number;
-};
-
 export type UpdateUserPass = {
   password?: string;
   password_confirmation?: string;

@@ -3,7 +3,7 @@ import { VerifyEmail } from 'lib/types/api/auth';
 import { UpdateUser, UpdateUserPass } from 'lib/types/api/user';
 
 export const updateMe = async ({ id, body }: UpdateUser) =>
-  instance.authorized().patch(`/user/${id}`, body);
+  instance.authorized().put(`/client/user/${id}`, body);
 
 export const me = async () => instance.authorized().get('/client/user/me');
 

@@ -35,18 +35,20 @@ function ProductCardCart({
         mx="auto"
       >
         <Box>
-          <Box d="flex" alignItems="baseline">
-            <Badge
-              borderRadius="full"
-              px="2"
-              bg="primary-c.500"
-              color="secondary-c"
-            >
-              R$ {price}
-            </Badge>
-          </Box>
+          {price && (
+            <Box d="flex" alignItems="baseline">
+              <Badge
+                borderRadius="full"
+                px="2"
+                bg="primary-c.500"
+                color="secondary-c"
+              >
+                R$ {price}
+              </Badge>
+            </Box>
+          )}
           <Text
-            mt="2"
+            mt={price && '2'}
             fontWeight="semibold"
             wordBreak="break-word"
             fontSize="xl"

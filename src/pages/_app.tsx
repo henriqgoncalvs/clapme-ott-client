@@ -24,6 +24,11 @@ function MyApp({ Component, pageProps }: AppProps) {
           <Head>
             <title>{styleguide.type.brand}</title>
             <link rel="icon" href="/favicon.ico" />
+            <meta
+              name="theme-color"
+              content={styleguide.colors['primary-c']['500']}
+            ></meta>
+            <meta name="description" content={styleguide.type.banner}></meta>
           </Head>
           <div className="min-h-screen flex flex-col justify-between">
             <Navbar />

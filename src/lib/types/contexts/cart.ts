@@ -6,5 +6,5 @@ export type CartProviderI = {
   addToCart: (item: CartItemI) => void;
   removeFromCart: (id: number | string) => void;
   finishCart: () => void;
-  cart: CartItemI[];
+  cart: CartItemI[] | null;
 };

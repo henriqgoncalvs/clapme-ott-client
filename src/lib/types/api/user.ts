@@ -12,13 +12,12 @@ export type User = {
 };
 
 export type UpdateUser = {
-  id?: number;
+  id?: string | number;
   body: {
     name?: string;
     email?: string;
     cpf?: string;
     phone?: string;
-    company_id?: number;
   };
 };
 

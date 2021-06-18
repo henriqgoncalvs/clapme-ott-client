@@ -4,7 +4,7 @@ import { Button, Flex, Text } from '@chakra-ui/react';
 import { useCart } from '@contexts/CartProvider';
 
 function FinishCart() {
-  const { finishCart } = useCart();
+  const { finishCart, cart } = useCart();
 
   return (
     <Flex
@@ -16,11 +16,11 @@ function FinishCart() {
     >
       <Flex w="100%" alignItems="center" justifyContent="space-between" mb={6}>
         <Text fontWeight="bold">Sub-total:</Text>
-        <p>R$ 00,00</p>
+        <p>R$ {cart?.reduce((acc, obj) => (acc += Number(obj.price)), 0)}</p>
       </Flex>
       <Flex w="100%" alignItems="center" justifyContent="space-between" mb={6}>
         <Text fontWeight="bold">Desconto:</Text>
-        <p>-</p>
+        <p>R$ {cart?.reduce((acc, obj) => (acc += Number(obj.price)), 0)}</p>
       </Flex>
       <Flex w="100%" alignItems="center" justifyContent="space-between" mb={6}>
         <Text fontWeight="bold">Total:</Text>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Center, Container, useToast } from '@chakra-ui/react';
+import { Box, Center, Container, Flex, useToast } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { parseCookies } from 'nookies';
@@ -10,8 +10,11 @@ import { EventI } from 'lib/types/api/events';
 import { ProductI } from 'lib/types/api/product';
 
 import { useAuth } from '@contexts/AuthProvider/AuthProvider';
+import ChatProvider from '@contexts/ChatProvider';
 
 import PageLoading from '@layout/PageLoading';
+
+import ChatFeed from '@organism/Chat/ChatFeed';
 
 type Props = {
   event: EventI & {
@@ -26,8 +29,6 @@ function Watch({ event }: Props) {
   const router = useRouter();
   const toast = useToast();
   const [eventAllowed, setEventAllowed] = useState(false);
-
-  console.log(event);
 
   const { id } = router.query;
 
@@ -68,49 +69,58 @@ function Watch({ event }: Props) {
 
   if (!user) return <PageLoading />;
 
-  if (!event.is_active) {
-    return router.push('/');
-  }
-
   return (
-    <Container
-      py="16"
-      px="8"
-      mt={10}
-      h="100vh"
-      maxW="100vw"
-      pos="relative"
-      overflowX="hidden"
-      _before={{
-        content: "''",
-        bg: 'solid-c',
-        pos: 'absolute',
-        top: 0,
-        left: 0,
-        w: '100%',
-        h: '100%',
-        zIndex: 13,
-        opacity: 0.7,
-      }}
-    >
-      {eventAllowed && (
-        <>
-          <Center maxW="2xl" mx="auto" h="100%" pos="relative" zIndex="15">
-            <iframe
-              width="100%"
+    <ChatProvider>
+      <Container
+        py="16"
+        px="8"
+        mt={10}
+        h="100vh"
+        maxW="100vw"
+        pos="relative"
+        overflowX="hidden"
+        _before={{
+          content: "''",
+          bg: 'solid-c',
+          pos: 'absolute',
+          top: 0,
+          left: 0,
+          w: '100%',
+          h: '100%',
+          zIndex: 13,
+          opacity: 0.7,
+        }}
+      >
+        {eventAllowed && (
+          <>
+            <Flex
+              alignItems="stretch"
+              direction={{ base: 'column', lg: 'row' }}
               height="100%"
-              frameBorder="0"
-              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-              src={event.url_player}
-            ></iframe>
-          </Center>
-          <img
-            src={event.banner}
-            className="absolute w-screen h-screen top-0 left-0 object-cover z-10 filter blur-sm"
-          />
-        </>
-      )}
-    </Container>
+            >
+              <Box flex="1">
+                <Center w="100%" mx="auto" h="100%" pos="relative" zIndex="15">
+                  <iframe
+                    width="100%"
+                    height="100%"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                    src={event.url_player}
+                  ></iframe>
+                </Center>
+              </Box>
+              <Box className="z-20" flex={{ base: '2', lg: '0.4' }}>
+                <ChatFeed />
+              </Box>
+            </Flex>
+            <img
+              src={event.banner}
+              className="absolute w-screen h-screen top-0 left-0 object-cover z-10 filter blur-sm"
+            />
+          </>
+        )}
+      </Container>
+    </ChatProvider>
   );
 }
 
@@ -165,7 +175,10 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   }
 
   return {
-    props: {},
+    redirect: {
+      permanent: false,
+      destination: '/',
+    },
   };
 };
 

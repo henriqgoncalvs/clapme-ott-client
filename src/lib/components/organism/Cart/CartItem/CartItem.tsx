@@ -17,11 +17,7 @@ function CartItem({ id, title, description, price }: CartItemI) {
       mb={16}
     >
       <Box flex="1" mr={{ base: 0, md: 6 }} mb={{ base: 6, md: 0 }}>
-        <ProductCardCart
-          title={title}
-          description={description}
-          price={price}
-        />
+        <ProductCardCart title={title} description={description} />
       </Box>
 
       <Box w="100%" flex="1">
@@ -30,7 +26,7 @@ function CartItem({ id, title, description, price }: CartItemI) {
             <Text fontWeight="bold" mb="6">
               Valor
             </Text>
-            <p>R$ 00,00</p>
+            <p>R$ {price}</p>
           </Flex>
 
           {/* <Flex direction="column" alignItems="center" flex="1">

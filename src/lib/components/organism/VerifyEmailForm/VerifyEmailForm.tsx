@@ -99,7 +99,12 @@ function VerifyEmailForm() {
               )}
             </Field>
 
-            <Button size="md" mt={4} onClick={handleResendVerifyCode}>
+            <Button
+              size="md"
+              mt={4}
+              onClick={handleResendVerifyCode}
+              variant="outline"
+            >
               Reenviar código para email.
             </Button>
             <Button

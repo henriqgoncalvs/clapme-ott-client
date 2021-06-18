@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import dayjs from 'dayjs';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
-import { parseCookies } from 'nookies';
+import { destroyCookie, parseCookies } from 'nookies';
 
 import { EventsAPI } from 'core/api/fetchers';
 import { ACCESS_TOKEN } from 'core/config';
@@ -63,6 +63,10 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
     const nextEventsData: EventI[] = nextEventsResponse.data?.data;
     const eventsData: EventI[] = eventsResponse.data?.data;
+
+    if (nextEventsResponse.status !== 200 || eventsResponse.status !== 200) {
+      destroyCookie(ctx, ACCESS_TOKEN);
+    }
 
     return {
       props: {

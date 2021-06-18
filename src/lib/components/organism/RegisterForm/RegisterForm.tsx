@@ -53,6 +53,7 @@ function RegisterForm() {
     }
   };
 
+  console.log(process?.env.NEXT_PUBLIC_COMPANY_TOKEN);
   return (
     <Formik
       initialValues={{
@@ -66,7 +67,7 @@ function RegisterForm() {
       onSubmit={(values) => {
         return handleRegister({
           ...values,
-          company_token: Number(process.env.NEXT_PUBLIC_COMPANY_TOKEN),
+          company_token: process?.env.NEXT_PUBLIC_COMPANY_TOKEN,
           cpf: values.cpf.replaceAll('.', '').replace('-', ''),
         });
       }}

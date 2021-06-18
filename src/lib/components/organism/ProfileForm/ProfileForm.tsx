@@ -12,7 +12,7 @@ import {
 import { Field, FieldProps, Form, Formik } from 'formik';
 
 import { UserAPI } from 'core/api/fetchers';
-import { UpdateUser } from 'lib/types/user';
+import { UpdateUser } from 'lib/types/api/user';
 import * as validators from 'lib/validators';
 
 import { useAuth } from '@contexts/AuthProvider/AuthProvider';
@@ -21,7 +21,7 @@ function ProfileForm() {
   const { user } = useAuth();
   const toast = useToast();
 
-  const handleUpdate = async (values: UpdateUser) => {
+  const handleUpdate = async (values: UpdateUser['body']) => {
     try {
       const response = await UserAPI.updateMe({
         id: user?.id,
@@ -33,6 +33,15 @@ function ProfileForm() {
           position: 'top',
           title: 'Usuário editado com sucesso.',
           status: 'success',
+          duration: 5000,
+          isClosable: true,
+        });
+      } else {
+        toast({
+          position: 'top',
+          title: 'Erro na edição do usuário.',
+          description: 'Verifique os campos e tente novamente.',
+          status: 'error',
           duration: 5000,
           isClosable: true,
         });

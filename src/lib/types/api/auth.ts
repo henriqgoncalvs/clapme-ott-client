@@ -10,7 +10,7 @@ export type RegisterUser = {
   password_confirmation: string;
   cpf: string;
   phone: string;
-  company_token: number;
+  company_token?: string;
 };
 
 export type ForgotPass = {
