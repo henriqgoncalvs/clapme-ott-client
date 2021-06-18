@@ -1,5 +1,6 @@
 import instance from 'core/api/instance';
-import { UpdateUser, UpdateUserPass, VerifyEmail } from 'lib/types/api/user';
+import { VerifyEmail } from 'lib/types/api/auth';
+import { UpdateUser, UpdateUserPass } from 'lib/types/api/user';
 
 export const updateMe = async ({ id, body }: UpdateUser) =>
   instance.authorized().patch(`/user/${id}`, body);
