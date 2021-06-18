@@ -22,8 +22,12 @@ function CartProvider({ children }: { children: ReactNode }) {
   const router = useRouter();
 
   useEffect(() => {
-    if (cart === null && parseCookies()[CART_COOKIES]) {
-      setCart(JSON.parse(parseCookies()[CART_COOKIES]));
+    if (cart === null) {
+      if (parseCookies()[CART_COOKIES]) {
+        setCart(JSON.parse(parseCookies()[CART_COOKIES]));
+      } else {
+        setCart([]);
+      }
     }
   }, [cart]);
 
