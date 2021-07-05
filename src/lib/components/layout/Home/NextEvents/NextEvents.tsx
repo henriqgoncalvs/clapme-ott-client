@@ -21,6 +21,7 @@ function NextEvents({ nextEvents }: Props) {
               className="w-full flex items-center justify-center"
             >
               <EventCard
+                slug={event.slug}
                 products={event.products}
                 title={event.title}
                 description={event.description}
