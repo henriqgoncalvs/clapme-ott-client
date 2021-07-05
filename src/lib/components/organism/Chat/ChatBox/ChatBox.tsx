@@ -16,7 +16,7 @@ const ChatBox: React.FC<MessageProps> = ({ message, isMine }) => {
       <Flex flexDirection="column" width="100%">
         <Tag
           variant="subtle"
-          mb={2}
+          mb={1}
           bg={isMine ? 'solid-c' : 'gray.500'}
           color="solid-text-c"
           ml={isMine ? 'auto' : undefined}
@@ -24,6 +24,16 @@ const ChatBox: React.FC<MessageProps> = ({ message, isMine }) => {
         >
           {message?.sender}
         </Tag>
+        <Text
+          fontSize={13}
+          maxWidth={400}
+          mb={1}
+          color="primary-c.500"
+          ml={isMine ? 'auto' : undefined}
+          mr={isMine ? undefined : 'auto'}
+        >
+          {message?.company || 'Sem empresa'}
+        </Text>
         <Flex
           bg="gray.50"
           pr={2}
@@ -34,7 +44,7 @@ const ChatBox: React.FC<MessageProps> = ({ message, isMine }) => {
           ml={isMine ? 'auto' : undefined}
           mr={isMine ? undefined : 'auto'}
         >
-          <Text fontSize={15} maxWidth={400}>
+          <Text fontSize={15} wordBreak="break-word" color="#000">
             {message?.text}
           </Text>
           <Flex
@@ -45,7 +55,7 @@ const ChatBox: React.FC<MessageProps> = ({ message, isMine }) => {
             justifyContent="flex-end"
           >
             <Text fontSize={12} color="gray.500">
-              {dayjs(message?.createdAt).format('HH:mm A')}
+              {dayjs(message?.sendedAt).format('HH:mm A')}
             </Text>
             {isMine ? (
               <RiCheckDoubleFill fontSize={12} color="green.400" />

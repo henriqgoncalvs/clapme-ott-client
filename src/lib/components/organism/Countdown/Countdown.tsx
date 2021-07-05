@@ -1,10 +1,11 @@
 import RCountdown from 'react-countdown';
 import { Button } from '@chakra-ui/button';
 import { Center, Flex, Text, Wrap, WrapItem } from '@chakra-ui/layout';
+import dayjs from 'dayjs';
 import Link from 'next/link';
 
 type Props = {
-  endDate: string;
+  endDate: number;
   id: string | number;
 };
 
@@ -17,10 +18,18 @@ function Countdown({ endDate, id }: Props) {
           return (
             <Flex align="center" direction="column">
               <Text mb={8} textAlign="center">
-                Estamos ao vivo
+                {dayjs().isAfter(dayjs(endDate).add(4, 'hours'))
+                  ? 'Veja o que aconteceu em nosso evento'
+                  : 'Estamos ao vivo'}
               </Text>
               <Link href={`/assistir/${id}`} passHref>
-                <Button textTransform="uppercase" size="lg">
+                <Button
+                  textTransform="uppercase"
+                  size="lg"
+                  maxW="300px"
+                  w="100%"
+                  className="animate-pulse"
+                >
                   Assistir
                 </Button>
               </Link>

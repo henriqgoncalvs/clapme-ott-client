@@ -21,6 +21,7 @@
     "@emotion/styled": "^11",
     "axios": "^0.21.1",
     "dayjs": "^1.10.5",
+    "emoji-picker-react": "^3.4.8",
     "firebase": "^8.6.8",
     "formik": "^2.2.9",
     "framer-motion": "^4",

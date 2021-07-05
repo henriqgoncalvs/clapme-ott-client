@@ -12,6 +12,8 @@ export type User = {
   first_login: string;
   created_at: string;
   updated_at: string;
+  is_company_admin: boolean;
+  user_company: string;
   boughtProducts: BoughtProducts[];
 };
 

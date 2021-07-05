@@ -1,6 +1,5 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
-import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { destroyCookie, parseCookies } from 'nookies';
 
@@ -17,14 +16,38 @@ import Header from '@layout/Home/Header';
 import NextEvents from '@layout/Home/NextEvents';
 import PageLoading from '@layout/PageLoading';
 
-type Props = {
-  events: EventI[];
-  nextEvents: EventI[];
-};
-
-export default function Home({ events, nextEvents }: Props) {
+export default function Home() {
   const { isAuthenticated, user } = useAuth();
   const router = useRouter();
+
+  const token = parseCookies()[ACCESS_TOKEN];
+
+  const [events, setEvents] = useState<EventI[]>([]);
+  const [nextEvents, setNextEvents] = useState<EventI[]>([]);
+
+  useEffect(() => {
+    if (token) {
+      const fetchEvents = async () => {
+        const nextEventsResponse = await EventsAPI.nextEvents(token);
+        const eventsResponse = await EventsAPI.events(token);
+
+        const nextEventsData: EventI[] = nextEventsResponse.data?.data;
+        const eventsData: EventI[] = eventsResponse.data?.data;
+
+        if (eventsResponse.status !== 200) {
+          destroyCookie(null, ACCESS_TOKEN);
+        }
+
+        if (nextEventsResponse.status !== 200) {
+          destroyCookie(null, ACCESS_TOKEN);
+        }
+
+        setEvents(eventsData);
+        setNextEvents(nextEventsData);
+      };
+      fetchEvents();
+    }
+  }, [token]);
 
   useEffect(() => {
     if (isAuthenticated === false && !styleguide.public_home) {
@@ -53,30 +76,3 @@ export default function Home({ events, nextEvents }: Props) {
     </>
   );
 }
-
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const token = parseCookies(ctx)[ACCESS_TOKEN];
-
-  if (token) {
-    const nextEventsResponse = await EventsAPI.nextEvents(token);
-    const eventsResponse = await EventsAPI.events(token);
-
-    const nextEventsData: EventI[] = nextEventsResponse.data?.data;
-    const eventsData: EventI[] = eventsResponse.data?.data;
-
-    if (nextEventsResponse.status !== 200 || eventsResponse.status !== 200) {
-      destroyCookie(ctx, ACCESS_TOKEN);
-    }
-
-    return {
-      props: {
-        nextEvents: nextEventsData,
-        events: eventsData,
-      },
-    };
-  }
-
-  return {
-    props: {},
-  };
-};

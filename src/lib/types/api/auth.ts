@@ -25,5 +25,5 @@ export type ResetPass = {
 };
 
 export type VerifyEmail = {
-  code: string | number;
+  code: string | string[] | undefined;
 };

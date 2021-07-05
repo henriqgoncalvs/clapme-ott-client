@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { Box, Center, Container, Flex, useToast } from '@chakra-ui/react';
-import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { parseCookies } from 'nookies';
 
@@ -16,21 +15,22 @@ import PageLoading from '@layout/PageLoading';
 
 import ChatFeed from '@organism/Chat/ChatFeed';
 
-type Props = {
-  event: EventI & {
-    url_player: string;
-    banner: string;
-    products: ProductI[];
-  };
+type EventS = EventI & {
+  url_player: string;
+  banner: string;
+  products: ProductI[];
 };
 
-function Watch({ event }: Props) {
+function Watch() {
   const { isAuthenticated, user, boughtProducts } = useAuth();
   const router = useRouter();
   const toast = useToast();
   const [eventAllowed, setEventAllowed] = useState(false);
 
-  const { id } = router.query;
+  const token = parseCookies()[ACCESS_TOKEN];
+  const [event, setEvent] = useState<EventS | null>(null);
+
+  const { id }: { id?: string } = router.query;
 
   useEffect(() => {
     if (isAuthenticated === false) {
@@ -39,7 +39,32 @@ function Watch({ event }: Props) {
   }, [isAuthenticated]);
 
   useEffect(() => {
-    if (boughtProducts) {
+    if (token) {
+      const fetchWatch = async () => {
+        const watchEventResponse = await EventsAPI.watch(id, token);
+
+        const watchEventData: EventI = watchEventResponse.data?.data || [];
+
+        const eventResponse = await EventsAPI.showEvent(id, token);
+
+        const eventData: EventI = eventResponse.data?.data || [];
+
+        const event = {
+          ...watchEventData,
+          banner: eventData.banner,
+          products: eventData.products,
+        };
+
+        setEvent(event);
+        setEventAllowed(true);
+      };
+
+      fetchWatch();
+    }
+  }, [token]);
+
+  useEffect(() => {
+    if (boughtProducts && event) {
       if (
         boughtProducts?.filter(
           (bp) =>
@@ -52,7 +77,7 @@ function Watch({ event }: Props) {
         ).length !== 0
       ) {
         setEventAllowed(true);
-      } else if (!event.products?.length) {
+      } else if (!event?.products?.length) {
         setEventAllowed(true);
       } else {
         toast({
@@ -65,7 +90,7 @@ function Watch({ event }: Props) {
         router.push('/');
       }
     }
-  }, [boughtProducts]);
+  }, [boughtProducts, event]);
 
   if (!user) return <PageLoading />;
 
@@ -104,17 +129,17 @@ function Watch({ event }: Props) {
                     width="100%"
                     height="100%"
                     frameBorder="0"
-                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                    src={event.url_player}
+                    allow="accelerometer; fullscreen; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                    src={event?.url_player}
                   ></iframe>
                 </Center>
               </Box>
               <Box className="z-20" flex={{ base: '2', lg: '0.4' }}>
-                <ChatFeed />
+                <ChatFeed eventId={id} />
               </Box>
             </Flex>
             <img
-              src={event.banner}
+              src={event?.banner}
               className="absolute w-screen h-screen top-0 left-0 object-cover z-10 filter blur-sm"
             />
           </>
@@ -123,63 +148,5 @@ function Watch({ event }: Props) {
     </ChatProvider>
   );
 }
-
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const token = parseCookies(ctx)[ACCESS_TOKEN];
-  const id: number | string | string[] | undefined = ctx.params?.id;
-
-  if (token) {
-    const watchEventResponse = await EventsAPI.watch(id, token);
-
-    if (watchEventResponse.status === 403) {
-      return {
-        redirect: {
-          permanent: false,
-          destination: '/',
-        },
-      };
-    }
-
-    const watchEventData: EventI = watchEventResponse.data?.data || [];
-
-    const eventResponse = await EventsAPI.showEvent(id, token);
-
-    if (eventResponse.status === 403) {
-      return {
-        redirect: {
-          permanent: false,
-          destination: '/',
-        },
-      };
-    }
-
-    const eventData: EventI = eventResponse.data?.data || [];
-
-    const event = {
-      ...watchEventData,
-      banner: eventData.banner,
-      products: eventData.products,
-    };
-
-    if (eventData.products) {
-      return {
-        props: {
-          event: event,
-        },
-      };
-    }
-
-    return {
-      props: {},
-    };
-  }
-
-  return {
-    redirect: {
-      permanent: false,
-      destination: '/',
-    },
-  };
-};
 
 export default Watch;

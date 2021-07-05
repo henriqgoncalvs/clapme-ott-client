@@ -60,8 +60,6 @@ export const VerifyEmailSchema = Yup.object().shape({
 });
 
 export const ResetPassSchema = Yup.object().shape({
-  email,
-  token: Yup.string().required('Campo é obrigatório'),
   password,
   password_confirmation,
 });

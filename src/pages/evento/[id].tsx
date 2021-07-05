@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Box, Center, Container, Flex, Stack, Text } from '@chakra-ui/react';
+import dayjs from 'dayjs';
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -102,7 +103,14 @@ function Event({ event }: Props) {
                   <Text textAlign="center">{event.description}</Text>
                 </Flex>
 
-                <Countdown endDate={event.premiere_date} id={event.id} />
+                {event?.premiere_date && (
+                  <Countdown
+                    endDate={dayjs(event?.premiere_date)
+                      .subtract(30, 'minutes')
+                      .valueOf()}
+                    id={event?.id}
+                  />
+                )}
               </Stack>
             </Box>
           </Flex>

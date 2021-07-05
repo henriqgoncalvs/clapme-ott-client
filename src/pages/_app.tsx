@@ -23,12 +23,17 @@ function MyApp({ Component, pageProps }: AppProps) {
         <CartProvider>
           <Head>
             <title>{styleguide.type.brand}</title>
-            <link rel="icon" href="/favicon.ico" />
+            <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+            <link rel="icon" href="/favicon.ico" type="image/x-icon" />
             <meta
               name="theme-color"
               content={styleguide.colors['primary-c']['500']}
             ></meta>
             <meta name="description" content={styleguide.type.banner}></meta>
+            <meta property="og:type" content="website" />
+            <meta property="og:title" content={styleguide.type.brand} />
+            <meta property="og:description" content={styleguide.type.banner} />
+            <meta property="og:site_name" content={styleguide.type.banner} />
           </Head>
           <div className="min-h-screen flex flex-col justify-between">
             <Navbar />

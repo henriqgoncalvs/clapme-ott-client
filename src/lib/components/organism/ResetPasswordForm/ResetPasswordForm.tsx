@@ -8,17 +8,30 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { Field, FieldProps, Form, Formik } from 'formik';
+import { useRouter } from 'next/router';
 
 import { AuthAPI } from 'core/api/fetchers';
 import { ResetPass } from 'lib/types/api/auth';
 import * as validators from 'lib/validators';
 
-function RegisterForm() {
-  const toast = useToast();
+type Props = {
+  email: string;
+  token: string;
+};
 
-  const handleResetPassword = async (values: ResetPass) => {
+function RegisterForm({ email, token }: Props) {
+  const toast = useToast();
+  const router = useRouter();
+
+  const handleResetPassword = async (
+    values: Omit<ResetPass, 'email' | 'token'>,
+  ) => {
     try {
-      const response = await AuthAPI.resetPass(values);
+      const response = await AuthAPI.resetPass({
+        ...values,
+        email,
+        token,
+      });
 
       if (response.status === 200) {
         toast({
@@ -30,6 +43,8 @@ function RegisterForm() {
           duration: 5000,
           isClosable: true,
         });
+
+        router.push('/entrar');
       }
     } catch (err) {
       toast({
@@ -46,8 +61,6 @@ function RegisterForm() {
   return (
     <Formik
       initialValues={{
-        email: '',
-        token: '',
         password: '',
         password_confirmation: '',
       }}
@@ -59,41 +72,6 @@ function RegisterForm() {
       {({ isSubmitting, dirty }) => (
         <Form>
           <Flex direction="column" maxW="md" mx="auto">
-            <Field name="email">
-              {({ field, form }: FieldProps) => (
-                <FormControl
-                  isInvalid={!!(form.errors.email && form.touched.email)}
-                  mb="6"
-                >
-                  <FormLabel htmlFor="email">Email</FormLabel>
-                  <Input
-                    {...field}
-                    id="email"
-                    type="email"
-                    placeholder="Digite aqui seu email"
-                  />
-                  <FormErrorMessage>{form.errors.email}</FormErrorMessage>
-                </FormControl>
-              )}
-            </Field>
-            <Field name="token">
-              {({ field, form }: FieldProps) => (
-                <FormControl
-                  isInvalid={!!(form.errors.token && form.touched.token)}
-                  mb="6"
-                >
-                  <FormLabel htmlFor="token">Token</FormLabel>
-
-                  <Input
-                    {...field}
-                    id="token"
-                    type="token"
-                    placeholder="Digite aqui seu token recebido no email"
-                  />
-                  <FormErrorMessage>{form.errors.token}</FormErrorMessage>
-                </FormControl>
-              )}
-            </Field>
             <Field name="password">
               {({ field, form }: FieldProps) => (
                 <FormControl

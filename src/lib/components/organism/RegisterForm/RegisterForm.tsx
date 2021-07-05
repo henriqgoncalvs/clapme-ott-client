@@ -53,7 +53,6 @@ function RegisterForm() {
     }
   };
 
-  console.log(process?.env.NEXT_PUBLIC_COMPANY_TOKEN);
   return (
     <Formik
       initialValues={{

@@ -16,6 +16,7 @@ export type EventI = {
   live_duration: string;
   banner_video: string;
   og_title: string;
+  slug: string;
   og_description: string;
   og_url: string;
   artists: ArtistsI[];

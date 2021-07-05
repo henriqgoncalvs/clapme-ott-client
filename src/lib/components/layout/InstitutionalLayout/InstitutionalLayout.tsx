@@ -11,9 +11,9 @@ type Props = {
 
 function InstitutionalLayout({ title, children }: Props) {
   return (
-    <Container py="16" px="8" mt={20}>
-      <Center maxW="md" w="100%" mx="auto">
-        <Flex direction="column" align="stretch" w="100%">
+    <Container py="16" px="8" mt={20} maxW="6xl">
+      <Center w="100%" mx="auto">
+        <Flex direction="column" w="100%">
           <Flex alignSelf="center" direction="column" align="center">
             <Box
               px={6}
@@ -34,7 +34,7 @@ function InstitutionalLayout({ title, children }: Props) {
             </Heading>
           </Flex>
 
-          <Box as="p" textAlign="center">
+          <Box as="p" textAlign="justify">
             {children}
           </Box>
         </Flex>

@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable unused-imports/no-unused-vars */
 import {
   createContext,
   ReactNode,
@@ -6,15 +9,19 @@ import {
   useState,
 } from 'react';
 import { useToast } from '@chakra-ui/react';
+import dayjs from 'dayjs';
 import { useRouter } from 'next/router';
 import { destroyCookie, parseCookies, setCookie } from 'nookies';
 
 import { AuthAPI, ProductsAPI, UserAPI } from 'core/api/fetchers';
-import { ACCESS_TOKEN } from 'core/config';
+import { ACCESS_TOKEN, FIREBASE_USERS_ONLINE_COLLECTION } from 'core/config';
+import firebase, { db } from 'core/firebase';
 import { Login } from 'lib/types/api/auth';
 import { BoughtProducts } from 'lib/types/api/product';
 import { AuthProviderI } from 'lib/types/contexts/auth-provider';
 import { User } from 'lib/types/user';
+
+import 'firebase/firestore';
 
 const AuthContext = createContext({} as AuthProviderI);
 
@@ -29,6 +36,85 @@ function AuthProvider({ children }: { children: ReactNode }) {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
 
   const router = useRouter();
+
+  const userStatusDatabaseRef = firebase.database().ref('/status/' + user?.id);
+
+  const userStatusFirestoreRef = firebase
+    .firestore()
+    .doc('/status/' + user?.id);
+
+  useEffect(() => {
+    if (user?.id) {
+      if (user?.is_company_admin === false) {
+        firebase
+          .database()
+          .ref('.info/connected')
+          .on('value', function (snapshot) {
+            if (snapshot.val() == false) {
+              userStatusFirestoreRef.set({
+                uid: user?.id,
+                displayName: user?.name,
+                company: user?.user_company,
+                state: 'offline',
+                last_changed: firebase.firestore.FieldValue.serverTimestamp(),
+              });
+              return;
+            }
+
+            userStatusDatabaseRef
+              .onDisconnect()
+              .set({
+                uid: user?.id,
+                displayName: user?.name,
+                company: user?.user_company,
+                state: 'offline',
+                last_changed: firebase.database.ServerValue.TIMESTAMP,
+              })
+              .then(function () {
+                userStatusDatabaseRef.set({
+                  uid: user?.id,
+                  displayName: user?.name,
+                  company: user?.user_company,
+                  state: 'online',
+                  last_changed: firebase.database.ServerValue.TIMESTAMP,
+                });
+
+                userStatusFirestoreRef.set({
+                  uid: user?.id,
+                  displayName: user?.name,
+                  company: user?.user_company,
+                  state: 'online',
+                  last_changed: firebase.firestore.FieldValue.serverTimestamp(),
+                });
+              });
+          });
+      }
+
+      db.collection(FIREBASE_USERS_ONLINE_COLLECTION)
+        .doc(user?.id.toString())
+        .onSnapshot((querySnapShot: any) => {
+          const data = querySnapShot.data();
+
+          if (
+            data !== undefined &&
+            data.session_token !==
+              parseCookies(null, ACCESS_TOKEN)[ACCESS_TOKEN]
+          ) {
+            logout();
+            // router.reload();
+            return toast({
+              position: 'top',
+              title: 'Alguém acessou sua conta.',
+              description:
+                'Por favor não compartilhe sua conta, cada conta deve pertencer a um único usuário.',
+              status: 'error',
+              duration: 5000,
+              isClosable: true,
+            });
+          }
+        });
+    }
+  }, [user]);
 
   const updateUser = () => {
     const token = parseCookies()[ACCESS_TOKEN];
@@ -75,11 +161,46 @@ function AuthProvider({ children }: { children: ReactNode }) {
             return logout();
           }
 
-          setUser(meResponse.data);
-          setIsAuthenticated(true);
-          fetchBoughtProducts();
-          router.push('/');
+          db.collection(FIREBASE_USERS_ONLINE_COLLECTION)
+            .doc(meResponse.data?.id.toString())
+            .get()
+            .then((doc) => {
+              if (doc.exists) {
+                db.collection(FIREBASE_USERS_ONLINE_COLLECTION)
+                  .doc(meResponse.data?.id.toString())
+                  .update({
+                    session_token: parseCookies(null, ACCESS_TOKEN)[
+                      ACCESS_TOKEN
+                    ],
+                  })
+                  .then(() => {
+                    setUser(meResponse.data);
+                    setIsAuthenticated(true);
+                    fetchBoughtProducts();
+                    router.push('/');
+                  });
+              } else {
+                db.collection(FIREBASE_USERS_ONLINE_COLLECTION)
+                  .doc(meResponse.data?.id.toString())
+                  .set({
+                    createdAt: dayjs().locale('pt-br').toISOString(),
+                    uid: meResponse.data?.id,
+                    displayName: meResponse.data?.name,
+                    company: meResponse.data?.user_company,
+                    session_token: parseCookies(null, ACCESS_TOKEN)[
+                      ACCESS_TOKEN
+                    ],
+                  })
+                  .then(() => {
+                    setUser(meResponse.data);
+                    setIsAuthenticated(true);
+                    fetchBoughtProducts();
+                    router.push('/');
+                  });
+              }
+            });
         } catch (err) {
+          console.log(err);
           setIsAuthenticated(false);
           toast({
             position: 'top',
@@ -125,13 +246,15 @@ function AuthProvider({ children }: { children: ReactNode }) {
     destroyCookie(null, ACCESS_TOKEN);
     setIsAuthenticated(false);
     setUser(null);
-    toast({
-      position: 'top',
-      title: title || 'Deslogado com sucesso.',
-      status: type || 'success',
-      duration: 5000,
-      isClosable: true,
+
+    userStatusDatabaseRef.set({
+      uid: user?.id,
+      displayName: user?.name,
+      company: user?.user_company,
+      state: 'offline',
+      last_changed: firebase.database.ServerValue.TIMESTAMP,
     });
+
     router.push('/entrar');
   };
 
